@@ -39,7 +39,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Application\Program.cs" />
-        <Compile Include="Helper\Controler.cs" />
+        <Compile Include="Helper\ApiController.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
