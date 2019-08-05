@@ -1,19 +1,24 @@
 ﻿namespace PoeNinja
 {
+    using Model;
     using Helper;
     using System;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using System.Collections.Generic;
 
     internal class Program
     {
-        static string url = @"https://api.stackexchange.com/2.2/answers?order=desc&sort=activity&site=stackoverflow";
+        static string url = @"https://poe.ninja/api/data/itemoverview?league=Legion&type=SkillGem";
 
         public static void Main(string[] args)
         {
-            string html = string.Empty;
+            string json = string.Empty;
 
-            html = ApiController.GetResponse(url: url);
+            json = ApiController.GetHtml(url: url);
+            JObject jObject = JObject.Parse(json);
+            
 
-            Console.WriteLine(html);
         }
     }
 }

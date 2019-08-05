@@ -14,7 +14,7 @@ namespace PoeNinja.Helper
             return request;
         }
 
-        public static string GetResponse(string url)
+        public static string GetHtml(string url)
         {
             string html = string.Empty;
 
