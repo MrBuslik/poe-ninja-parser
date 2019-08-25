@@ -45,6 +45,7 @@
         <Compile Include="Application\Model\Gem.cs" />
         <Compile Include="Application\Program.cs" />
         <Compile Include="Application\Utils\ApiController.cs" />
+        <Compile Include="Application\Utils\Manager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

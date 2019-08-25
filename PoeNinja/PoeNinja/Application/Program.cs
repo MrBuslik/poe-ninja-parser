@@ -1,6 +1,5 @@
 ﻿namespace PoeNinja.Application
 {
-    using System;
     using Newtonsoft.Json.Linq;
     using Utils;
 
@@ -12,10 +11,10 @@
         {
             string json = string.Empty;
 
-            json = ApiController.GetHtml(url: url);
+            json = ApiController.GetJson(url: url);
             JObject jObject = JObject.Parse(json);
-            
 
+            Manager.InitJson(jObject);
         }
     }
 }

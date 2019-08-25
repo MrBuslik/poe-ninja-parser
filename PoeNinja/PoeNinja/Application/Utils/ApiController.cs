@@ -6,7 +6,7 @@ namespace PoeNinja.Application.Utils
 
     public static class ApiController
     {
-        public static string GetHtml(string url)
+        public static string GetJson(string url)
         {
             string html = string.Empty;
 
