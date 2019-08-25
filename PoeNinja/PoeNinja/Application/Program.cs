@@ -1,11 +1,8 @@
-﻿namespace PoeNinja
+﻿namespace PoeNinja.Application
 {
-    using Model;
-    using Helper;
     using System;
-    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
-    using System.Collections.Generic;
+    using Utils;
 
     internal class Program
     {

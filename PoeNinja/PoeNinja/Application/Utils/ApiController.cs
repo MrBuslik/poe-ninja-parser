@@ -1,19 +1,11 @@
-namespace PoeNinja.Helper
+namespace PoeNinja.Application.Utils
 {
     using System;
-    using System.Net;
     using System.IO;
+    using System.Net;
 
     public static class ApiController
     {
-        private static HttpWebRequest DoRequest(string url)
-        {
-            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
-            request.AutomaticDecompression = DecompressionMethods.GZip;
-            
-            return request;
-        }
-
         public static string GetHtml(string url)
         {
             string html = string.Empty;
@@ -25,9 +17,20 @@ namespace PoeNinja.Helper
             using (StreamReader reader = new StreamReader(stream))
             {
                 html = reader.ReadToEnd();
+
+                Console.WriteLine($"Sending {response.Method} request to URL: {response.ResponseUri}");
+                Console.WriteLine($"Response code: {response.StatusCode}");
             }
 
             return html;
+        }
+
+        private static HttpWebRequest DoRequest(string url)
+        {
+            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
+            request.AutomaticDecompression = DecompressionMethods.GZip;
+            
+            return request;
         }
     }
 }

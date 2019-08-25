@@ -42,13 +42,16 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Application\Model\Gem.cs" />
         <Compile Include="Application\Program.cs" />
-        <Compile Include="Helper\ApiController.cs" />
-        <Compile Include="Model\Gem.cs" />
+        <Compile Include="Application\Utils\ApiController.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Application\Helper" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

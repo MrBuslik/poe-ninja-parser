@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace PoeNinja.Model
+namespace PoeNinja.Application.Model
 {
     public class Gem
     {
