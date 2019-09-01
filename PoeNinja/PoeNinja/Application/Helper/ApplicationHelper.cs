@@ -2,7 +2,7 @@ namespace PoeNinja.Application.Helper
 {
     using System;
     using System.Collections.Generic;
-    using Model;
+    using Items;
     using Newtonsoft.Json.Linq;
 
     public abstract class ApplicationHelper

@@ -1,4 +1,4 @@
-namespace PoeNinja.Application.Model
+namespace PoeNinja.Application.Items
 {
     using System.Collections.Generic;
 
