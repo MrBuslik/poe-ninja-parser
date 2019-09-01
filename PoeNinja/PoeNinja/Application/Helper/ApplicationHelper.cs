@@ -33,8 +33,8 @@ namespace PoeNinja.Application.Helper
                 }
             }
             
-            Console.WriteLine($"lvl : {lvlDictionary.Count}");
-            Console.WriteLine($"quality : {qualityDictionary.Count}");
+            Console.WriteLine($"\nThere are Gems 20lvl/1% : {lvlDictionary.Count}");
+            Console.WriteLine($"There are Gems 1lvl/20% : {qualityDictionary.Count}\n");
         }
 
         private static void InitLvlGem(Gem gem)

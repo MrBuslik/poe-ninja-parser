@@ -14,7 +14,8 @@
             json = ApiController.GetJson(url: url);
             JObject jObject = JObject.Parse(json);
 
-            Manager.InitJson(jObject);
+            Reseller.InitJson(jObject);
+            Reseller.PrintItemWithProfit();
             
         }
     }
