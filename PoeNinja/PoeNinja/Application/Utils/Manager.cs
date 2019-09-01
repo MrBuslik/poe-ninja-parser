@@ -1,36 +1,21 @@
 namespace PoeNinja.Application.Utils
 {
-    using System;
     using System.Collections.Generic;
-    using Newtonsoft.Json.Linq;
-    using Model;
+    using Helper;
 
-    public class Manager
+    public class Manager : ApplicationHelper
     {
-        public static void InitJson(JObject jObject)
+        private Dictionary<string, double> profitDictionary { get; set; }
+        
+        public static void PrintItemWithProfit()
         {
-            Gem item = new Gem();
-            List<Gem> pList = new List<Gem>();
-            List<Gem> qList = new List<Gem>();
             
-            foreach (var jsonItem in jObject["lines"])
+        }
+        
+        private static void SearchProfit()
+        {
+            for (int i = 0; i < lvlDictionary.Count; i++)
             {
-                item.name = jsonItem["name"].ToString();
-                item.variant = jsonItem["variant"].ToString();
-                item.gemLevel = Convert.ToInt16(jsonItem["gemLevel"]);
-                item.gemQuality = Convert.ToInt16(jsonItem["gemQuality"]);
-                item.corrupted = Convert.ToBoolean(jsonItem["corrupted"]);
-                item.chaosValue = Convert.ToDouble(jsonItem["chaosValue"]);
-
-                if (!item.corrupted && item.gemLevel == 20 && item.variant.Equals("20"))
-                {
-                    pList.Add(item);
-                }
-
-                if (!item.corrupted && item.gemLevel == 1 && item.gemQuality == 20)
-                {
-                    qList.Add(item);
-                }
             }
         }
     }

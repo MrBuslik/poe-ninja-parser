@@ -15,6 +15,7 @@
             JObject jObject = JObject.Parse(json);
 
             Manager.InitJson(jObject);
+            
         }
     }
 }
