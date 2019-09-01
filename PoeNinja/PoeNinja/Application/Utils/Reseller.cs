@@ -13,9 +13,9 @@ namespace PoeNinja.Application.Utils
 
             var result = CompareDict(lvlDictionary, qualityDictionary);
 
-            Console.WriteLine($"Total profitable values: {result.Count}\n");
+            Console.WriteLine($"Total profitable positions: {result.Count}\n");
 
-            foreach (var item in result)
+            foreach (var item in result.OrderByDescending(x => x.Value))
             {
                 Console.WriteLine($"\"{item.Key}\" : \"{item.Value}\"");
             }

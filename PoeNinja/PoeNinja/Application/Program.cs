@@ -1,9 +1,11 @@
-﻿namespace PoeNinja.Application
+﻿using PoeNinja.Application.Helper;
+
+namespace PoeNinja.Application
 {
     using Newtonsoft.Json.Linq;
     using Utils;
 
-    internal class Program
+    internal class Program : ApplicationHelper
     {
         static string url = @"https://poe.ninja/api/data/itemoverview?league=Legion&type=SkillGem";
 
@@ -14,7 +16,8 @@
             json = ApiController.GetJson(url: url);
             JObject jObject = JObject.Parse(json);
 
-            Reseller.InitJson(jObject);
+            InitJson(jObject);
+            
             Reseller.PrintItemWithProfit();
             
         }
