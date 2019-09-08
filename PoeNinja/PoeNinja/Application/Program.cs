@@ -1,4 +1,5 @@
-﻿using PoeNinja.Application.Helper;
+﻿using System;
+using PoeNinja.Application.Helper;
 
 namespace PoeNinja.Application
 {
@@ -7,7 +8,7 @@ namespace PoeNinja.Application
 
     internal class Program : ApplicationHelper
     {
-        static string url = @"https://poe.ninja/api/data/itemoverview?league=Legion&type=SkillGem";
+        static string url = @"https://poe.ninja/api/data/itemoverview?league=Standard&type=SkillGem";
 
         public static void Main(string[] args)
         {
@@ -18,8 +19,8 @@ namespace PoeNinja.Application
 
             InitJson(jObject);
             
-            Reseller.PrintItemWithProfit();
-            
+            Reseller.InvestigateItemPositions();
+            Console.ReadLine();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace PoeNinja.Application.Utils
 
     public class Reseller : ApplicationHelper
     {
-        public static void PrintItemWithProfit()
+        public static void InvestigateItemPositions()
         {
 
             var result = CompareDict(lvlDictionary, qualityDictionary);
@@ -24,24 +24,28 @@ namespace PoeNinja.Application.Utils
         private static Dictionary<string, double> CompareDict(Dictionary<string, double> d1,
             Dictionary<string, double> d2)
         {
-            Dictionary<string, double> finalDictionary = new Dictionary<string, double>();
+            Dictionary<string, double> result = new Dictionary<string, double>();
+
+            Dictionary<string, double> min = d1.Keys.Count <= d2.Keys.Count ? d1 : d2;
+            Dictionary<string, double> max = d2.Keys.Count <= d1.Keys.Count ? d1 : d2;
+            
 
             string key = string.Empty;
-            double price = Double.MinValue;
+            double price;
             double lowPrice = 7.0;
 
-            foreach (var item in d1)
+            foreach (var item in min)
             {
                 key = item.Key;
-                price = d2[key] - d1[key];
+                price = max[key] - min[key];
 
-                if (price > lowPrice)
+                if (lowPrice < price)
                 {
-                    finalDictionary[key] = price;
+                    result[key] = price;
                 }
             }
             
-            return finalDictionary;
+            return result;
         }
     }
 }
