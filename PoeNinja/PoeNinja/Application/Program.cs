@@ -7,7 +7,7 @@ namespace PoeNinja.Application
 
     internal class Program : ApplicationHelper
     {
-        static string url = @"https://poe.ninja/api/data/itemoverview?league=Legion&type=SkillGem";
+        static string url = @"https://poe.ninja/api/data/itemoverview?league=Blight&type=SkillGem";
 
         public static void Main(string[] args)
         {
