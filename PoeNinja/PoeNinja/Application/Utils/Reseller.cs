@@ -10,7 +10,6 @@ namespace PoeNinja.Application.Utils
     {
         public static void InvestigateItemPositions()
         {
-
             var result = CompareDict(lvlDictionary, qualityDictionary);
 
             Console.WriteLine($"Total profitable positions: {result.Count}\n");
@@ -28,23 +27,27 @@ namespace PoeNinja.Application.Utils
 
             Dictionary<string, double> min = d1.Keys.Count <= d2.Keys.Count ? d1 : d2;
             Dictionary<string, double> max = d2.Keys.Count <= d1.Keys.Count ? d1 : d2;
-            
+
 
             string key = string.Empty;
             double price;
-            double lowPrice = 7.0;
+            double lowPrice = 5.0;
 
             foreach (var item in min)
             {
                 key = item.Key;
-                price = max[key] - min[key];
 
-                if (lowPrice < price)
+                if (max.ContainsKey(key))
                 {
-                    result[key] = price;
+                    price = max[key] - min[key];
+                    
+                    if (lowPrice <= price)
+                    {
+                        result[key] = price;
+                    }
                 }
             }
-            
+
             return result;
         }
     }
