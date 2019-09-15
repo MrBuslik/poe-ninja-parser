@@ -44,6 +44,7 @@
     <ItemGroup>
         <Compile Include="Application\Helper\ApplicationHelper.cs" />
         <Compile Include="Application\Items\Gem.cs" />
+        <Compile Include="Application\Items\Item.cs" />
         <Compile Include="Application\Program.cs" />
         <Compile Include="Application\Utils\ApiController.cs" />
         <Compile Include="Application\Utils\Reseller.cs" />

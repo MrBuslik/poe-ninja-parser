@@ -1,8 +1,7 @@
-﻿using System;
-using PoeNinja.Application.Helper;
-
-namespace PoeNinja.Application
+﻿namespace PoeNinja.Application
 {
+    using System;
+    using Helper;
     using Newtonsoft.Json.Linq;
     using Utils;
 

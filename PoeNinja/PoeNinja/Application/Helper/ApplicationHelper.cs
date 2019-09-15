@@ -16,12 +16,12 @@ namespace PoeNinja.Application.Helper
 
             foreach (var jsonItem in jObject["lines"])
             {
-                item.name = jsonItem["name"].ToString();
+                item.Name = jsonItem["name"].ToString();
                 item.variant = jsonItem["variant"].ToString();
                 item.gemLevel = Convert.ToInt16(jsonItem["gemLevel"]);
                 item.gemQuality = Convert.ToInt16(jsonItem["gemQuality"]);
                 item.corrupted = Convert.ToBoolean(jsonItem["corrupted"]);
-                item.chaosValue = Convert.ToDouble(jsonItem["chaosValue"]);
+                item.Price = Convert.ToDouble(jsonItem["chaosValue"]);
 
                 if (!item.corrupted && item.gemLevel == 20 && item.variant.Equals("20"))
                 {
@@ -39,12 +39,12 @@ namespace PoeNinja.Application.Helper
 
         private static void InitLvlGem(Gem gem)
         {
-            lvlDictionary[gem.name] = gem.chaosValue;
+            lvlDictionary[gem.Name] = gem.Price;
         }
 
         private static void InitQualityGem(Gem gem)
         {
-            qualityDictionary[gem.name] = gem.chaosValue;
+            qualityDictionary[gem.Name] = gem.Price;
         }
     }
 }
