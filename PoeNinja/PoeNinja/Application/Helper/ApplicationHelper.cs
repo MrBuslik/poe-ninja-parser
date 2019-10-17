@@ -10,7 +10,7 @@ namespace PoeNinja.Application.Helper
         protected static Dictionary<string, double> lvlDictionary = new Dictionary<string, double>();
         protected static Dictionary<string, double> qualityDictionary = new Dictionary<string, double>();
 
-        public static void InitJson(JObject jObject)
+        protected static void InitJson(JObject jObject)
         {
             Gem item = new Gem();
 
