@@ -6,6 +6,9 @@ namespace PoeNinja.Application.Items
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Model of item - 'Gem skill'
+    /// </summary>
     public class Gem : IComparer<Gem>
     {
         public string Name { get; set; }

@@ -8,6 +8,9 @@ namespace PoeNinja.Application.Utils
     using System.IO;
     using System.Net;
 
+    /// <summary>
+    /// Allows work with API
+    /// </summary>
     public static class ApiController
     {
         public static string GetJson(string url)

@@ -8,6 +8,9 @@ namespace PoeNinja.Application
     using Newtonsoft.Json.Linq;
     using Utils;
 
+    /// <summary>
+    /// Makes run console application
+    /// </summary>
     internal class Program : ApplicationHelper
     {
         private static string url = "https://poe.ninja/api/data/itemoverview?league=Blight&type=SkillGem";

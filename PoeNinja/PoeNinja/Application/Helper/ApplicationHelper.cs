@@ -9,6 +9,9 @@ namespace PoeNinja.Application.Helper
     using Items;
     using Newtonsoft.Json.Linq;
 
+    /// <summary>
+    /// Helper class
+    /// </summary>
     public abstract class ApplicationHelper
     {
         protected static readonly Dictionary<string, double> QualityDictionary = new Dictionary<string, double>();
