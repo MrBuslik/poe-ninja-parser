@@ -5,6 +5,7 @@
 namespace PoeNinja.Application.Utils
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Net;
 
@@ -13,6 +14,7 @@ namespace PoeNinja.Application.Utils
     /// </summary>
     public static class ApiController
     {
+        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple")]
         public static string GetJson(string url)
         {
             string html = string.Empty;
