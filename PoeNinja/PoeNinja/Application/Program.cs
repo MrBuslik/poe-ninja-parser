@@ -14,9 +14,9 @@ namespace PoeNinja.Application
     /// </summary>
     public class Program : ApplicationHelper
     {
-        public static void Main()
+        public static void Main(string[] args)
         {
-            var league = Environment.GetEnvironmentVariable("League");
+            var league = args[0];
             
             string url = $"https://poe.ninja/api/data/itemoverview?league={league}&type=SkillGem";
 
