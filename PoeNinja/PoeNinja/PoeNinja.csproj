@@ -31,6 +31,7 @@
     <WarningsAsErrors>SA1306 SA1501 SA1013 SA1508 SA1200 SA1025 SA1514</WarningsAsErrors>
     <NoWarn>SA0001;SA1135;SA1404;SA1116;SA1101;CS0649;CS0169;SA1652;SA1516;SA1636;SA1310;SA1123;SA1117;SA1401;SA1202;SA1214;SA1307;SA1124;SA1201;SA1028</NoWarn>
     <CodeAnalysisRuleSet>PoeNinjaRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

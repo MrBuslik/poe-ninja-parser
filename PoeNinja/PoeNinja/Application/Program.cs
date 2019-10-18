@@ -4,7 +4,6 @@
 
 namespace PoeNinja.Application
 {
-    using System;
     using Helper;
     using Newtonsoft.Json.Linq;
     using Utils;
@@ -12,16 +11,15 @@ namespace PoeNinja.Application
     /// <summary>
     /// Makes run console application
     /// </summary>
-    internal class Program : ApplicationHelper
+    public class Program : ApplicationHelper
     {
-        private static string url = "https://poe.ninja/api/data/itemoverview?league=Blight&type=SkillGem";
+        private const string Url = "https://poe.ninja/api/data/itemoverview?league=Blight&type=SkillGem";
 
         public static void Main()
         {
-            Console.WriteLine();
             string json = string.Empty;
 
-            json = ApiController.GetJson(url: url);
+            json = ApiController.GetJson(url: Url);
             JObject jObject = JObject.Parse(json);
 
             InitJson(jObject);
