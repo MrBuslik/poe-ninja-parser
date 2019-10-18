@@ -13,13 +13,15 @@ namespace PoeNinja.Application
     /// </summary>
     public class Program : ApplicationHelper
     {
-        private const string Url = "https://poe.ninja/api/data/itemoverview?league=Blight&type=SkillGem";
-
-        public static void Main()
+        public static void Main(string[] args)
         {
+            var league = args[0];
+            
+            string url = $"https://poe.ninja/api/data/itemoverview?league={league}&type=SkillGem";
+
             string json = string.Empty;
 
-            json = ApiController.GetJson(url: Url);
+            json = ApiController.GetJson(url: url);
             JObject jObject = JObject.Parse(json);
 
             InitJson(jObject);
