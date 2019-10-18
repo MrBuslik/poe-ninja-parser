@@ -1,9 +1,16 @@
+// <copyright file="ApiController.cs" company="YLazakovich">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace PoeNinja.Application.Utils
 {
     using System;
     using System.IO;
     using System.Net;
 
+    /// <summary>
+    /// Allows work with API
+    /// </summary>
     public static class ApiController
     {
         public static string GetJson(string url)
@@ -11,8 +18,8 @@ namespace PoeNinja.Application.Utils
             string html = string.Empty;
 
             var request = DoRequest(url);
-            
-            using (HttpWebResponse response = (HttpWebResponse) request.GetResponse())
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             using (Stream stream = response.GetResponseStream())
             using (StreamReader reader = new StreamReader(stream))
             {
@@ -27,9 +34,9 @@ namespace PoeNinja.Application.Utils
 
         private static HttpWebRequest DoRequest(string url)
         {
-            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
+            var request = WebRequest.Create(url) as HttpWebRequest;
             request.AutomaticDecompression = DecompressionMethods.GZip;
-            
+
             return request;
         }
     }

@@ -1,3 +1,7 @@
+// <copyright file="ApplicationHelper.cs" company="YLazakovich">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace PoeNinja.Application.Helper
 {
     using System;
@@ -5,46 +9,49 @@ namespace PoeNinja.Application.Helper
     using Items;
     using Newtonsoft.Json.Linq;
 
+    /// <summary>
+    /// Helper class
+    /// </summary>
     public abstract class ApplicationHelper
     {
-        protected static Dictionary<string, double> lvlDictionary = new Dictionary<string, double>();
-        protected static Dictionary<string, double> qualityDictionary = new Dictionary<string, double>();
+        protected static readonly Dictionary<string, double> QualityDictionary = new Dictionary<string, double>();
+        protected static readonly Dictionary<string, double> LvlDictionary = new Dictionary<string, double>();
 
-        public static void InitJson(JObject jObject)
+        protected static void InitJson(JObject jObject)
         {
             Gem item = new Gem();
 
             foreach (var jsonItem in jObject["lines"])
             {
-                item.name = jsonItem["name"].ToString();
-                item.variant = jsonItem["variant"].ToString();
-                item.gemLevel = Convert.ToInt16(jsonItem["gemLevel"]);
-                item.gemQuality = Convert.ToInt16(jsonItem["gemQuality"]);
-                item.corrupted = Convert.ToBoolean(jsonItem["corrupted"]);
-                item.chaosValue = Convert.ToDouble(jsonItem["chaosValue"]);
+                item.Name = jsonItem["name"].ToString();
+                item.Variant = jsonItem["variant"].ToString();
+                item.GemLevel = Convert.ToInt16(jsonItem["gemLevel"]);
+                item.GemQuality = Convert.ToInt16(jsonItem["gemQuality"]);
+                item.Corrupted = Convert.ToBoolean(jsonItem["corrupted"]);
+                item.ChaosValue = Convert.ToDouble(jsonItem["chaosValue"]);
 
-                if (!item.corrupted && item.gemLevel == 20 && item.variant.Equals("20"))
+                if (!item.Corrupted && item.GemLevel == 20 && item.Variant.Equals("20"))
                 {
                     InitLvlGem(item);
                 }
-                else if (!item.corrupted && item.gemLevel == 1 && item.gemQuality == 20)
+                else if (!item.Corrupted && item.GemLevel == 1 && item.GemQuality == 20)
                 {
                     InitQualityGem(item);
                 }
             }
-            
-            Console.WriteLine($"\nThere are Gems 20lvl/1% : {lvlDictionary.Count}");
-            Console.WriteLine($"There are Gems 1lvl/20% : {qualityDictionary.Count}\n");
+
+            Console.WriteLine($"\nThere are Gems 20lvl/1% : {LvlDictionary.Count}");
+            Console.WriteLine($"There are Gems 1lvl/20% : {QualityDictionary.Count}\n");
         }
 
         private static void InitLvlGem(Gem gem)
         {
-            lvlDictionary[gem.name] = gem.chaosValue;
+            LvlDictionary[gem.Name] = gem.ChaosValue;
         }
 
         private static void InitQualityGem(Gem gem)
         {
-            qualityDictionary[gem.name] = gem.chaosValue;
+            QualityDictionary[gem.Name] = gem.ChaosValue;
         }
     }
 }
