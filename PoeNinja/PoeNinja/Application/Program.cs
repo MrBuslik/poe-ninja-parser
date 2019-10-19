@@ -34,10 +34,12 @@ namespace PoeNinja.Application
                 Method = Method.GET,
                 Parameters =
                 {
-                    new Parameter("league", league, ParameterType.QueryString),
-                    new Parameter("type", item, ParameterType.QueryString),
+                    // Headers
                     new Parameter("Content-Type", "application/json", ParameterType.HttpHeader),
                     new Parameter("Host", "poe.ninja", ParameterType.HttpHeader),
+                    // QueryParams
+                    new Parameter("league", league, ParameterType.QueryString),
+                    new Parameter("type", item, ParameterType.QueryString),
                 }
             };
             
