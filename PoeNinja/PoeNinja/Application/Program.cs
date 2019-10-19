@@ -2,11 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using System;
-using RestSharp;
-
 namespace PoeNinja.Application
 {
+    using System;
+    using RestSharp;
     using Helper;
     using Newtonsoft.Json.Linq;
     using Utils;
