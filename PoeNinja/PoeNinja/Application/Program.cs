@@ -16,37 +16,37 @@ namespace PoeNinja.Application
     public class Program : ApplicationHelper
     {
         // TODO PROTOYPE IS DONE WITH REST can to start refactoring code;
-        
+
         public static void Main(string[] args)
         {
             // TODO remove before merge;
-            // var league = args[0];
             var league = "Blight";
             var item = "SkillGem";
-            
-//            string url = $"https://poe.ninja/api/data/itemoverview?league={league}&type=SkillGem";
+
             string url = "https://poe.ninja/api/data/itemoverview";
 
-            RestClient client = new RestClient(url);
+            RestClient client = new RestClient
+            {
+                BaseHost = "poe.ninja",
+                BaseUrl = new Uri(url)
+            };
+
             RestRequest request = new RestRequest
             {
                 Method = Method.GET,
                 Parameters =
                 {
-                    // Headers
-                    new Parameter("Content-Type", "application/json", ParameterType.HttpHeader),
-                    new Parameter("Host", "poe.ninja", ParameterType.HttpHeader),
-                    // QueryParams
                     new Parameter("league", league, ParameterType.QueryString),
                     new Parameter("type", item, ParameterType.QueryString),
                 }
             };
-            
+
             var response = client.Execute(request);
 
-            Console.WriteLine(response.Content);
-            
-            string json = string.Empty;
+            response.ContentType = "application/json";
+
+            string json = response.Content;
+            Console.WriteLine(json);
 
 //            json = ApiController.GetJson(url: url);
 //            JObject jObject = JObject.Parse(json);
