@@ -4,9 +4,11 @@
 
 namespace PoeNinja.Application
 {
+    using Items;
     using System;
     using Utils;
     using Helper;
+    using Newtonsoft.Json;
     using RestSharp;
 
     /// <summary>
@@ -25,10 +27,11 @@ namespace PoeNinja.Application
             ResponseWrapper responseWrapper = new ResponseWrapper(client);
 
             var response = responseWrapper.GetSkillInfo();
-            
+
+            Gems list = JsonConvert.DeserializeObject<Gems>(ConvertResponseToJson(response));
+
             Console.WriteLine(ConvertResponseToJson(response));
 
-//            json = ApiController.GetJson(url: url);
 //            JObject jObject = JObject.Parse(json);
 
 //            InitJson(jObject);
