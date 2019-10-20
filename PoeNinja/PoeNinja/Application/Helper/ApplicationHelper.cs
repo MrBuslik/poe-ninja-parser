@@ -1,5 +1,6 @@
 namespace PoeNinja.Application.Helper
 {
+    using RestSharp;
     using System;
     using System.Collections.Generic;
     using Items;
@@ -35,6 +36,13 @@ namespace PoeNinja.Application.Helper
             
             Console.WriteLine($"\nThere are Gems 20lvl/1% : {lvlDictionary.Count}");
             Console.WriteLine($"There are Gems 1lvl/20% : {qualityDictionary.Count}\n");
+        }
+
+        public static string ConvertResponseToJson(IRestResponse response)
+        {
+            response.ContentType = "application/json";
+            
+            return response.Content;
         }
 
         private static void InitLvlGem(Gem gem)

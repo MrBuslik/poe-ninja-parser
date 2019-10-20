@@ -50,7 +50,8 @@
     <Compile Include="Application\Helper\ApplicationHelper.cs" />
     <Compile Include="Application\Items\Gem.cs" />
     <Compile Include="Application\Program.cs" />
-    <Compile Include="Application\Utils\ApiController.cs" />
+    <Compile Include="Application\Utils\Constants.cs" />
+    <Compile Include="Application\Utils\ResponseWrapper.cs" />
     <Compile Include="Application\Utils\Reseller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
