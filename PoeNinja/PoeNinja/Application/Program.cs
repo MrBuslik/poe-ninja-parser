@@ -4,19 +4,19 @@
 
 namespace PoeNinja.Application
 {
-    using Items;
     using System;
-    using Utils;
+    using Items;
     using Helper;
     using Newtonsoft.Json;
     using RestSharp;
+    using Utils;
 
     /// <summary>
     /// Makes run console application
     /// </summary>
     public class Program : ApplicationHelper
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             RestClient client = new RestClient
             {
@@ -31,12 +31,6 @@ namespace PoeNinja.Application
             Gems list = JsonConvert.DeserializeObject<Gems>(ConvertResponseToJson(response));
 
             Console.WriteLine(ConvertResponseToJson(response));
-
-//            JObject jObject = JObject.Parse(json);
-
-//            InitJson(jObject);
-
-//            Reseller.PrintItemWithProfit();
         }
     }
 }

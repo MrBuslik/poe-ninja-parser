@@ -1,3 +1,7 @@
+// <copyright file="ResponseWrapper.cs" company="YLazakovich">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace PoeNinja.Application.Utils
 {
     using Helper;
@@ -6,7 +10,7 @@ namespace PoeNinja.Application.Utils
     public class ResponseWrapper : ApplicationHelper
     {
         private RestClient client;
-        
+
         public ResponseWrapper(RestClient client)
         {
             this.client = client;
@@ -21,7 +25,7 @@ namespace PoeNinja.Application.Utils
                 {
                     new Parameter("league", Constants.League, ParameterType.QueryString),
                     new Parameter("type", Constants.Gem, ParameterType.QueryString),
-                }
+                },
             };
 
             return client.Execute(request);

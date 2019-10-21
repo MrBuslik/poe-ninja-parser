@@ -4,9 +4,7 @@
 
 namespace PoeNinja.Application.Utils
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Helper;
 
     /// <summary>
@@ -15,18 +13,6 @@ namespace PoeNinja.Application.Utils
     public class Reseller : ApplicationHelper
     {
         private const double LowPrice = 7.0;
-
-        public static void PrintItemWithProfit()
-        {
-            var result = CompareDict(LvlDictionary, QualityDictionary);
-
-            Console.WriteLine($"Total profitable positions: {result.Count}\n");
-
-            foreach (var item in result.OrderByDescending(x => x.Value))
-            {
-                Console.WriteLine($"\"{item.Key}\" : \"{item.Value}\"");
-            }
-        }
 
         private static Dictionary<string, double> CompareDict(
             Dictionary<string, double> d1,
