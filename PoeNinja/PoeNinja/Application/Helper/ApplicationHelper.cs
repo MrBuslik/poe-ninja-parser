@@ -1,5 +1,5 @@
 // <copyright file="ApplicationHelper.cs" company="YLazakovich">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
 namespace PoeNinja.Application.Helper
@@ -7,29 +7,36 @@ namespace PoeNinja.Application.Helper
     using System;
     using System.Collections.Generic;
     using Items;
-    using Newtonsoft.Json.Linq;
+    using RestSharp;
 
     /// <summary>
-    /// Helper class
+    /// Helper class.
     /// </summary>
     public abstract class ApplicationHelper
     {
-        protected static readonly Dictionary<string, double> QualityDictionary = new Dictionary<string, double>();
-        protected static readonly Dictionary<string, double> LvlDictionary = new Dictionary<string, double>();
+        protected static Dictionary<string, double> qualityDictionary = new Dictionary<string, double>();
+        protected static Dictionary<string, double> lvlDictionary = new Dictionary<string, double>();
 
-        protected static void InitJson(JObject jObject)
+        /// <summary>
+        /// Returns response content in json format.
+        /// </summary>
+        /// <param name="response">response.</param>
+        /// <returns>JSON Content.</returns>
+        protected static string ConvertResponseToJson(IRestResponse response)
         {
-            Gem item = new Gem();
+            response.ContentType = "application/json";
 
-            foreach (var jsonItem in jObject["lines"])
+            return response.Content;
+        }
+
+        /// <summary>
+        /// Looks profit positions from vault.
+        /// </summary>
+        /// <param name="vault">vault with object dates.</param>
+        protected static void TakeDataFromVault(ItemVault vault)
+        {
+            foreach (var item in vault.SkillGems)
             {
-                item.Name = jsonItem["name"].ToString();
-                item.Variant = jsonItem["variant"].ToString();
-                item.GemLevel = Convert.ToInt16(jsonItem["gemLevel"]);
-                item.GemQuality = Convert.ToInt16(jsonItem["gemQuality"]);
-                item.Corrupted = Convert.ToBoolean(jsonItem["corrupted"]);
-                item.ChaosValue = Convert.ToDouble(jsonItem["chaosValue"]);
-
                 if (!item.Corrupted && item.GemLevel == 20 && item.Variant.Equals("20"))
                 {
                     InitLvlGem(item);
@@ -40,18 +47,50 @@ namespace PoeNinja.Application.Helper
                 }
             }
 
-            Console.WriteLine($"\nThere are Gems 20lvl/1% : {LvlDictionary.Count}");
-            Console.WriteLine($"There are Gems 1lvl/20% : {QualityDictionary.Count}\n");
+            Console.WriteLine($"\nThere are Gems 20lvl/1% : {lvlDictionary.Count}");
+            Console.WriteLine($"There are Gems 1lvl/20% : {qualityDictionary.Count}\n");
+
+            var final = lvlDictionary.Count < qualityDictionary.Count
+                ? CompareDict(lvlDictionary, qualityDictionary)
+                : CompareDict(qualityDictionary, lvlDictionary);
+
+            foreach (var VARIABLE in final)
+            {
+                Console.WriteLine($"{VARIABLE.Key} : {VARIABLE.Value}");
+            }
         }
 
         private static void InitLvlGem(Gem gem)
         {
-            LvlDictionary[gem.Name] = gem.ChaosValue;
+            lvlDictionary[gem.Name] = gem.ChaosValue;
         }
 
         private static void InitQualityGem(Gem gem)
         {
-            QualityDictionary[gem.Name] = gem.ChaosValue;
+            qualityDictionary[gem.Name] = gem.ChaosValue;
+        }
+
+        private static Dictionary<string, double> CompareDict(
+            Dictionary<string, double> d1,
+            Dictionary<string, double> d2)
+        {
+            Dictionary<string, double> finalDictionary = new Dictionary<string, double>();
+
+            string key = string.Empty;
+            double price;
+
+            foreach (var item in d1)
+            {
+                key = item.Key;
+                price = d2[key] - d1[key];
+
+                if (price > 7)
+                {
+                    finalDictionary[key] = price;
+                }
+            }
+
+            return finalDictionary;
         }
     }
 }

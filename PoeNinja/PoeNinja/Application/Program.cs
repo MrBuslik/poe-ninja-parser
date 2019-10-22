@@ -1,33 +1,38 @@
 // <copyright file="Program.cs" company="YLazakovich">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
 namespace PoeNinja.Application
 {
     using System;
     using Helper;
-    using Newtonsoft.Json.Linq;
+    using Items;
+    using Newtonsoft.Json;
+    using RestSharp;
     using Utils;
 
     /// <summary>
-    /// Makes run console application
+    /// Makes run console application.
     /// </summary>
     public class Program : ApplicationHelper
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
-            var league = args[0];
-            
-            string url = $"https://poe.ninja/api/data/itemoverview?league={league}&type=SkillGem";
+            RestClient client;
 
-            string json = string.Empty;
+            client = new RestClient
+            {
+                BaseHost = "poe.ninja",
+                BaseUrl = new Uri(Constants.Url)
+            };
 
-            json = ApiController.GetJson(url: url);
-            JObject jObject = JObject.Parse(json);
+            ResponseWrapper responseWrapper = new ResponseWrapper(client);
 
-            InitJson(jObject);
+            var response = responseWrapper.GetSkillInfo();
 
-            Reseller.PrintItemWithProfit();
+            ItemVault vault = JsonConvert.DeserializeObject<ItemVault>(ConvertResponseToJson(response));
+
+            TakeDataFromVault(vault);
         }
     }
 }
