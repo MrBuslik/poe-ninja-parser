@@ -4,7 +4,7 @@
 
 namespace PoeNinja.Application.Utils
 {
-    using Helper;
+    using PoeNinja.Application.Helper;
     using RestSharp;
 
     public class ResponseWrapper : ApplicationHelper

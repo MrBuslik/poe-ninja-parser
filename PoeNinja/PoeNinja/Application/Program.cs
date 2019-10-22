@@ -6,10 +6,10 @@ namespace PoeNinja.Application
 {
     using System;
     using Helper;
+    using Items;
     using Newtonsoft.Json;
     using RestSharp;
     using Utils;
-    using Items;
 
     /// <summary>
     /// Makes run console application
@@ -31,7 +31,7 @@ namespace PoeNinja.Application
             var response = responseWrapper.GetSkillInfo();
 
             ItemVault vault = JsonConvert.DeserializeObject<ItemVault>(ConvertResponseToJson(response));
-
+      
             Console.WriteLine(ConvertResponseToJson(response));
         }
     }
