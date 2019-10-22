@@ -32,7 +32,7 @@ namespace PoeNinja.Application.Helper
         /// <summary>
         /// Looks profit positions from vault.
         /// </summary>
-        /// <param name="vault">vaults with object dates.</param>
+        /// <param name="vault">vault with object dates.</param>
         protected static void TakeDataFromVault(ItemVault vault)
         {
             foreach (var item in vault.SkillGems)
@@ -50,7 +50,10 @@ namespace PoeNinja.Application.Helper
             Console.WriteLine($"\nThere are Gems 20lvl/1% : {lvlDictionary.Count}");
             Console.WriteLine($"There are Gems 1lvl/20% : {qualityDictionary.Count}\n");
 
-            var final = CompareDict(lvlDictionary, qualityDictionary);
+            var final = lvlDictionary.Count < qualityDictionary.Count
+                ? CompareDict(lvlDictionary, qualityDictionary)
+                : CompareDict(qualityDictionary, lvlDictionary);
+
             foreach (var VARIABLE in final)
             {
                 Console.WriteLine($"{VARIABLE.Key} : {VARIABLE.Value}");
