@@ -28,10 +28,5 @@ namespace PoeNinja.Application.Items
 
         [JsonProperty("chaosValue")]
         public double ChaosValue { get; set; }
-
-        public int Compare(Gem x, Gem y)
-        {
-            return x?.ChaosValue < y?.ChaosValue ? 1 : -1;
-        }
     }
 }
