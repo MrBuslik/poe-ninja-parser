@@ -5,11 +5,11 @@
 namespace PoeNinja.Application
 {
     using System;
-    using Items;
     using Helper;
     using Newtonsoft.Json;
     using RestSharp;
     using Utils;
+    using Items;
 
     /// <summary>
     /// Makes run console application
@@ -18,7 +18,9 @@ namespace PoeNinja.Application
     {
         public static void Main()
         {
-            RestClient client = new RestClient
+            RestClient client;
+            
+            client = new RestClient
             {
                 BaseHost = "poe.ninja",
                 BaseUrl = new Uri(Constants.Url)
