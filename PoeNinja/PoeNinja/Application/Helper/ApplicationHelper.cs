@@ -14,9 +14,9 @@ namespace PoeNinja.Application.Helper
     /// </summary>
     public abstract class ApplicationHelper
     {
-        private static IDictionary<string, object> lvlDictionary = new Dictionary<string, object>();
-        private static IDictionary<string, object> qualityDictionary = new Dictionary<string, object>();
-        
+        protected static Dictionary<string, double> qualityDictionary = new Dictionary<string, double>();
+        protected static Dictionary<string, double> lvlDictionary = new Dictionary<string, double>();
+
         /// <summary>
         /// Returns response content in json format.
         /// </summary>
@@ -49,16 +49,22 @@ namespace PoeNinja.Application.Helper
 
             Console.WriteLine($"\nThere are Gems 20lvl/1% : {lvlDictionary.Count}");
             Console.WriteLine($"There are Gems 1lvl/20% : {qualityDictionary.Count}\n");
+
+            var final = CompareDict(lvlDictionary, qualityDictionary);
+            foreach (var VARIABLE in final)
+            {
+                Console.WriteLine($"{VARIABLE.Key} : {VARIABLE.Value}");
+            }
         }
 
         private static void InitLvlGem(Gem gem)
         {
-            lvlDictionary[gem.Name] = gem;
+            lvlDictionary[gem.Name] = gem.ChaosValue;
         }
 
         private static void InitQualityGem(Gem gem)
         {
-            qualityDictionary[gem.Name] = gem;
+            qualityDictionary[gem.Name] = gem.ChaosValue;
         }
 
         private static Dictionary<string, double> CompareDict(
@@ -75,7 +81,7 @@ namespace PoeNinja.Application.Helper
                 key = item.Key;
                 price = d2[key] - d1[key];
 
-                if (price > price)
+                if (price > 7)
                 {
                     finalDictionary[key] = price;
                 }

@@ -33,8 +33,6 @@ namespace PoeNinja.Application
             ItemVault vault = JsonConvert.DeserializeObject<ItemVault>(ConvertResponseToJson(response));
 
             TakeDataFromVault(vault);
-
-            Console.WriteLine(ConvertResponseToJson(response));
         }
     }
 }
