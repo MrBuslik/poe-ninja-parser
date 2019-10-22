@@ -7,12 +7,6 @@ namespace PoeNinja.Application.Items
     using System.Collections.Generic;
     using Newtonsoft.Json;
 
-    public class Gems
-    {
-        [JsonProperty("lines")]
-        public List<Gem> List { get; set; }
-    }
-
     public class Gem : IComparer<Gem>
     {
         [JsonProperty("name")]

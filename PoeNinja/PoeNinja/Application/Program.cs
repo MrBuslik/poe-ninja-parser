@@ -30,7 +30,7 @@ namespace PoeNinja.Application
 
             var response = responseWrapper.GetSkillInfo();
 
-            Gems list = JsonConvert.DeserializeObject<Gems>(ConvertResponseToJson(response));
+            ItemVault vault = JsonConvert.DeserializeObject<ItemVault>(ConvertResponseToJson(response));
 
             Console.WriteLine(ConvertResponseToJson(response));
         }
