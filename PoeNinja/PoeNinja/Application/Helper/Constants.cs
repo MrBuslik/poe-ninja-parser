@@ -1,13 +1,16 @@
 // <copyright file="Constants.cs" company="YLazakovich">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
-namespace PoeNinja.Application.Utils
+namespace PoeNinja.Application.Helper
 {
+    /// <summary>
+    /// Contains ready consts.
+    /// </summary>
     public static class Constants
     {
-        public static readonly string Url = "https://poe.ninja/api/data/itemoverview";
-        public static readonly string League = "Blight";
-        public static readonly string Gem = "SkillGem";
+        public const string Url = "https://poe.ninja/api/data/itemoverview";
+        public const string League = "Blight";
+        public const string Gem = "SkillGem";
     }
 }

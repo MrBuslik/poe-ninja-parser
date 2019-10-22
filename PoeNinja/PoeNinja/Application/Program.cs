@@ -1,5 +1,5 @@
 // <copyright file="Program.cs" company="YLazakovich">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
 namespace PoeNinja.Application
@@ -12,14 +12,14 @@ namespace PoeNinja.Application
     using Utils;
 
     /// <summary>
-    /// Makes run console application
+    /// Makes run console application.
     /// </summary>
     public class Program : ApplicationHelper
     {
         public static void Main()
         {
             RestClient client;
-            
+
             client = new RestClient
             {
                 BaseHost = "poe.ninja",
@@ -31,7 +31,7 @@ namespace PoeNinja.Application
             var response = responseWrapper.GetSkillInfo();
 
             ItemVault vault = JsonConvert.DeserializeObject<ItemVault>(ConvertResponseToJson(response));
-      
+
             Console.WriteLine(ConvertResponseToJson(response));
         }
     }

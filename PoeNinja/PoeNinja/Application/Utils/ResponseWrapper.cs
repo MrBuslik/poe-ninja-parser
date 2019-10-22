@@ -1,21 +1,32 @@
 // <copyright file="ResponseWrapper.cs" company="YLazakovich">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
 namespace PoeNinja.Application.Utils
 {
-    using PoeNinja.Application.Helper;
+    using Helper;
     using RestSharp;
 
+    /// <summary>
+    /// Executes RestRequests.
+    /// </summary>
     public class ResponseWrapper : ApplicationHelper
     {
         private RestClient client;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResponseWrapper"/> class.
+        /// </summary>
+        /// <param name="client">RestClient client.</param>
         public ResponseWrapper(RestClient client)
         {
             this.client = client;
         }
 
+        /// <summary>
+        /// Returns response about Skill Gems.
+        /// </summary>
+        /// <returns>RestResponse.</returns>
         public IRestResponse GetSkillInfo()
         {
             RestRequest request = new RestRequest

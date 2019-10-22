@@ -1,13 +1,13 @@
 // <copyright file="Reseller.cs" company="YLazakovich">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
 namespace PoeNinja.Application.Utils
 {
-        using Helper;
+    using Helper;
 
     /// <summary>
-    /// Helps to search profitable items
+    /// Helps to search profitable items.
     /// </summary>
     public class Reseller : ApplicationHelper
     {

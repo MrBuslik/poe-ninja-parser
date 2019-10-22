@@ -1,13 +1,15 @@
 // <copyright file="Gem.cs" company="YLazakovich">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
 namespace PoeNinja.Application.Items
 {
-    using System.Collections.Generic;
     using Newtonsoft.Json;
 
-    public class Gem : IComparer<Gem>
+    /// <summary>
+    /// Model for SkillGem.
+    /// </summary>
+    public class Gem
     {
         [JsonProperty("name")]
         public string Name { get; set; }

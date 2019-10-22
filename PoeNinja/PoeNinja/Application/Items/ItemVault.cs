@@ -1,5 +1,5 @@
 ﻿// <copyright file="ItemVault.cs" company="YLazakovich">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
 namespace PoeNinja.Application.Items
@@ -8,7 +8,7 @@ namespace PoeNinja.Application.Items
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Contains deserialize colletions with Objects type
+    /// Contains deserialize collections with Objects type.
     /// </summary>
     public class ItemVault
     {
