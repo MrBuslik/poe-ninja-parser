@@ -54,9 +54,9 @@ namespace PoeNinja.Application.Helper
                 ? CompareDict(lvlDictionary, qualityDictionary)
                 : CompareDict(qualityDictionary, lvlDictionary);
 
-            foreach (var VARIABLE in final)
+            foreach (var variable in final)
             {
-                Console.WriteLine($"{VARIABLE.Key} : {VARIABLE.Value}");
+                Console.WriteLine($"{variable.Key} : {variable.Value}");
             }
         }
 
