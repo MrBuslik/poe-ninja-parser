@@ -7,6 +7,7 @@ namespace PoeNinja.Application.Helper
     using System;
     using System.Collections.Generic;
     using Items;
+    using Items.Models;
     using RestSharp;
 
     /// <summary>
@@ -33,7 +34,7 @@ namespace PoeNinja.Application.Helper
         /// Looks profit positions from vault.
         /// </summary>
         /// <param name="vault">vault with object dates.</param>
-        protected static void TakeDataFromVault(ItemVault vault)
+        protected static void TakeDataFromVault(SkillsVault vault)
         {
             foreach (var item in vault.SkillGems)
             {

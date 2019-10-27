@@ -1,8 +1,8 @@
-﻿// <copyright file="ItemVault.cs" company="YLazakovich">
+﻿// <copyright file="SkillsVault.cs" company="YLazakovich">
 // Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
-namespace PoeNinja.Application.Items
+namespace PoeNinja.Application.Items.Models
 {
     using System.Collections.Generic;
     using Newtonsoft.Json;
@@ -10,7 +10,7 @@ namespace PoeNinja.Application.Items
     /// <summary>
     /// Contains deserialize collections with Objects type.
     /// </summary>
-    public class ItemVault
+    public class SkillsVault
     {
         [JsonProperty("lines")]
         public List<Gem> SkillGems { get; private set; }

@@ -6,7 +6,7 @@ namespace PoeNinja.Application
 {
     using System;
     using Helper;
-    using Items;
+    using Items.Models;
     using Newtonsoft.Json;
     using RestSharp;
     using Utils;
@@ -30,7 +30,7 @@ namespace PoeNinja.Application
 
             var response = responseWrapper.GetSkillInfo();
 
-            ItemVault vault = JsonConvert.DeserializeObject<ItemVault>(ConvertResponseToJson(response));
+            SkillsVault vault = JsonConvert.DeserializeObject<SkillsVault>(ConvertResponseToJson(response));
 
             TakeDataFromVault(vault);
         }

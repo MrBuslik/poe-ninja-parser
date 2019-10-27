@@ -62,8 +62,8 @@
   <ItemGroup>
     <Compile Include="Application\Helper\ApplicationHelper.cs" />
     <Compile Include="Application\Helper\Constants.cs" />
-    <Compile Include="Application\Items\Gem.cs" />
-    <Compile Include="Application\Items\ItemVault.cs" />
+    <Compile Include="Application\Items\Models\Gem.cs" />
+    <Compile Include="Application\Items\Models\SkillsVault.cs" />
     <Compile Include="Application\Program.cs" />
     <Compile Include="Application\Utils\ResponseWrapper.cs" />
     <Compile Include="Application\Utils\Reseller.cs" />
