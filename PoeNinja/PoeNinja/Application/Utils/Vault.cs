@@ -11,6 +11,9 @@ namespace PoeNinja.Application.Utils
     using Newtonsoft.Json;
     using RestSharp;
 
+    /// <summary>
+    /// Manages data.
+    /// </summary>
     public class Vault : ApplicationHelper
     {
         public Dictionary<string, dynamic> Storage { get; private set; }

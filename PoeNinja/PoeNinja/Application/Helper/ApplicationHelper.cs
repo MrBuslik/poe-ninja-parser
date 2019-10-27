@@ -7,7 +7,6 @@ namespace PoeNinja.Application.Helper
     using System;
     using System.Collections.Generic;
     using Items.Models;
-    using Items.Vaults;
     using RestSharp;
     using Utils;
 

@@ -26,7 +26,7 @@ namespace PoeNinja.Application.Utils
         /// <summary>
         /// Returns response about Skill Gems.
         /// </summary>
-        /// <returns>RestResponse.</returns>
+        /// <returns>RestResponse typo.</returns>
         public IRestResponse GetSkillInfo()
         {
             RestRequest request = new RestRequest
@@ -42,6 +42,10 @@ namespace PoeNinja.Application.Utils
             return client.Execute(request);
         }
 
+        /// <summary>
+        /// Returns response about Jewels.
+        /// </summary>
+        /// <returns>RestResponse.</returns>
         public IRestResponse GetJewelsInfo()
         {
             RestRequest request = new RestRequest
