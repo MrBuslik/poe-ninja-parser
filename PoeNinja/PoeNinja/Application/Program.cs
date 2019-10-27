@@ -29,8 +29,10 @@ namespace PoeNinja.Application
             ResponseWrapper responseWrapper = new ResponseWrapper(client);
 
             var response = responseWrapper.GetSkillInfo();
+            var response2 = responseWrapper.GetJewelsInfo();
 
             SkillsVault vault = JsonConvert.DeserializeObject<SkillsVault>(ConvertResponseToJson(response));
+            JewelsVault jewels = JsonConvert.DeserializeObject<JewelsVault>(ConvertResponseToJson(response2));
 
             TakeDataFromVault(vault);
         }

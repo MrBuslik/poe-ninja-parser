@@ -16,6 +16,7 @@ namespace PoeNinja.Application.Helper
         public const string League = "Blight";
 
         // Items
+        public const string Jewel = "UniqueJewel";
         public const string Gem = "SkillGem";
     }
 }

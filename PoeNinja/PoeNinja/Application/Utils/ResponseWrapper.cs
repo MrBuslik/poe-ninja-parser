@@ -41,5 +41,20 @@ namespace PoeNinja.Application.Utils
 
             return client.Execute(request);
         }
+
+        public IRestResponse GetJewelsInfo()
+        {
+            RestRequest request = new RestRequest
+            {
+                Method = Method.GET,
+                Parameters =
+                {
+                    new Parameter("league", Constants.League, ParameterType.QueryString),
+                    new Parameter("type", Constants.Jewel, ParameterType.QueryString),
+                },
+            };
+
+            return client.Execute(request);
+        }
     }
 }
