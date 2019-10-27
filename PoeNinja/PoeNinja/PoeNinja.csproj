@@ -64,11 +64,12 @@
     <Compile Include="Application\Helper\Constants.cs" />
     <Compile Include="Application\Items\Models\Gem.cs" />
     <Compile Include="Application\Items\Models\Jewel.cs" />
-    <Compile Include="Application\Items\Models\JewelsVault.cs" />
-    <Compile Include="Application\Items\Models\SkillsVault.cs" />
+    <Compile Include="Application\Items\Vaults\JewelsVault.cs" />
+    <Compile Include="Application\Items\Vaults\SkillsVault.cs" />
     <Compile Include="Application\Program.cs" />
     <Compile Include="Application\Utils\ResponseWrapper.cs" />
     <Compile Include="Application\Utils\Reseller.cs" />
+    <Compile Include="Application\Utils\Vault.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

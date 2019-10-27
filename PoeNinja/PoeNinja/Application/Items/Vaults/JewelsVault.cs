@@ -2,9 +2,10 @@
 // Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
-namespace PoeNinja.Application.Items.Models
+namespace PoeNinja.Application.Items.Vaults
 {
     using System.Collections.Generic;
+    using Models;
     using Newtonsoft.Json;
 
     /// <summary>

@@ -26,15 +26,13 @@ namespace PoeNinja.Application
                 BaseUrl = new Uri(Constants.Url)
             };
 
-            ResponseWrapper responseWrapper = new ResponseWrapper(client);
+            Vault vault = new Vault();
+            vault.SetSkillVault(client);
+            vault.SetJewelVault(client);
 
-            var response = responseWrapper.GetSkillInfo();
-            var response2 = responseWrapper.GetJewelsInfo();
-
-            SkillsVault vault = JsonConvert.DeserializeObject<SkillsVault>(ConvertResponseToJson(response));
-            JewelsVault jewels = JsonConvert.DeserializeObject<JewelsVault>(ConvertResponseToJson(response2));
-
-            TakeDataFromVault(vault);
+            // var response2 = responseWrapper.GetJewelsInfo();
+            // JewelsVault jewels = JsonConvert.DeserializeObject<JewelsVault>(ConvertResponseToJson(response2));
+            // TakeDataFromVault(skills);
         }
     }
 }
