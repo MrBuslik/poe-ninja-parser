@@ -28,11 +28,7 @@ namespace PoeNinja.Application
             vault.SetSkillVault(client);
             vault.SetJewelVault(client);
 
-            Console.WriteLine("after: test");
-
-            // var response2 = responseWrapper.GetJewelsInfo();
-            // JewelsVault jewels = JsonConvert.DeserializeObject<JewelsVault>(ConvertResponseToJson(response2));
-            // TakeDataFromVault(skills);
+            TakeDataFromVault(vault);
         }
     }
 }

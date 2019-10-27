@@ -9,6 +9,7 @@ namespace PoeNinja.Application.Helper
     using Items.Models;
     using Items.Vaults;
     using RestSharp;
+    using Utils;
 
     /// <summary>
     /// Helper class.
@@ -34,17 +35,19 @@ namespace PoeNinja.Application.Helper
         /// Looks profit positions from vault.
         /// </summary>
         /// <param name="vault">vault with object dates.</param>
-        protected static void TakeDataFromVault(SkillsVault vault)
+        protected static void TakeDataFromVault(Vault vault)
         {
-            foreach (var item in vault.SkillGems)
+            List<Gem> skills = vault.Storage[Constants.Gem];
+
+            foreach (var skill in skills)
             {
-                if (!item.Corrupted && item.GemLevel == 20 && item.Variant.Equals("20"))
+                if (!skill.Corrupted && skill.GemLevel == 20 && skill.Variant.Equals("20"))
                 {
-                    InitLvlGem(item);
+                    InitLvlGem(skill);
                 }
-                else if (!item.Corrupted && item.GemLevel == 1 && item.GemQuality == 20)
+                else if (!skill.Corrupted && skill.GemLevel == 1 && skill.GemQuality == 20)
                 {
-                    InitQualityGem(item);
+                    InitQualityGem(skill);
                 }
             }
 

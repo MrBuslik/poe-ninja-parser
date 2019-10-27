@@ -13,7 +13,7 @@ namespace PoeNinja.Application.Utils
 
     public class Vault : ApplicationHelper
     {
-        public Dictionary<string, dynamic> vault;
+        public Dictionary<string, dynamic> Storage { get; private set; }
 
         private static Vault instance;
 
@@ -22,7 +22,7 @@ namespace PoeNinja.Application.Utils
             if (instance == null)
             {
                 instance = new Vault();
-                instance.vault = new Dictionary<string, dynamic>
+                instance.Storage = new Dictionary<string, dynamic>
                 {
                     [Constants.Gem] = new List<SkillsVault>(),
                     [Constants.Jewel] = new List<JewelsVault>(),
@@ -38,9 +38,10 @@ namespace PoeNinja.Application.Utils
 
             var response = responseWrapper.GetSkillInfo();
 
-            SkillsVault skills = JsonConvert.DeserializeObject<SkillsVault>(ConvertResponseToJson(response));
+            SkillsVault storage = JsonConvert.DeserializeObject<SkillsVault>(ConvertResponseToJson(response));
+            List<Gem> skills = storage.SkillGems;
 
-            vault[Constants.Gem] = skills;
+            Storage[Constants.Gem] = skills;
         }
 
         public void SetJewelVault(RestClient client)
@@ -49,9 +50,10 @@ namespace PoeNinja.Application.Utils
 
             var response = responseWrapper.GetJewelsInfo();
 
-            JewelsVault jewels = JsonConvert.DeserializeObject<JewelsVault>(ConvertResponseToJson(response));
+            JewelsVault storage = JsonConvert.DeserializeObject<JewelsVault>(ConvertResponseToJson(response));
+            List<Jewel> jewels = storage.Jewels;
 
-            vault[Constants.Jewel] = jewels;
+            Storage[Constants.Jewel] = jewels;
         }
     }
 }
