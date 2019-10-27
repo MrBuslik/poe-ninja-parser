@@ -22,11 +22,7 @@ namespace PoeNinja.Application.Utils
             if (instance == null)
             {
                 instance = new Vault();
-                instance.Storage = new Dictionary<string, dynamic>
-                {
-                    [Constants.Gem] = new List<SkillsVault>(),
-                    [Constants.Jewel] = new List<JewelsVault>(),
-                };
+                instance.Storage = new Dictionary<string, dynamic>();
             }
 
             return instance;
@@ -38,7 +34,7 @@ namespace PoeNinja.Application.Utils
 
             var response = responseWrapper.GetSkillInfo();
 
-            SkillsVault storage = JsonConvert.DeserializeObject<SkillsVault>(ConvertResponseToJson(response));
+            SkillStorage storage = JsonConvert.DeserializeObject<SkillStorage>(ConvertResponseToJson(response));
             List<Gem> skills = storage.SkillGems;
 
             Storage[Constants.Gem] = skills;
@@ -50,7 +46,7 @@ namespace PoeNinja.Application.Utils
 
             var response = responseWrapper.GetJewelsInfo();
 
-            JewelsVault storage = JsonConvert.DeserializeObject<JewelsVault>(ConvertResponseToJson(response));
+            JewelStorage storage = JsonConvert.DeserializeObject<JewelStorage>(ConvertResponseToJson(response));
             List<Jewel> jewels = storage.Jewels;
 
             Storage[Constants.Jewel] = jewels;

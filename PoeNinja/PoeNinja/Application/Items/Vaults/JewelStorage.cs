@@ -1,4 +1,4 @@
-﻿// <copyright file="SkillsVault.cs" company="YLazakovich">
+// <copyright file="JewelsVault.cs" company="YLazakovich">
 // Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
@@ -11,9 +11,9 @@ namespace PoeNinja.Application.Items.Vaults
     /// <summary>
     /// Contains deserialize collections with Objects type.
     /// </summary>
-    public class SkillsVault
+    public class JewelStorage
     {
         [JsonProperty("lines")]
-        public List<Gem> SkillGems { get; set; }
+        public List<Jewel> Jewels { get; private set; }
     }
 }
