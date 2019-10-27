@@ -1,4 +1,4 @@
-// <copyright file="JewelsVault.cs" company="YLazakovich">
+// <copyright file="JewelStorage.cs" company="YLazakovich">
 // Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 

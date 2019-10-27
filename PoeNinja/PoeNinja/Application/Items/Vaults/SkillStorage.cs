@@ -1,4 +1,4 @@
-﻿// <copyright file="SkillsVault.cs" company="YLazakovich">
+﻿// <copyright file="SkillStorage.cs" company="YLazakovich">
 // Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
