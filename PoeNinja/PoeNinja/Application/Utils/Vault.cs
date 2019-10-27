@@ -6,6 +6,7 @@ namespace PoeNinja.Application.Utils
 {
     using System.Collections.Generic;
     using Helper;
+    using Items.Models;
     using Items.Vaults;
     using Newtonsoft.Json;
     using RestSharp;
@@ -15,10 +16,6 @@ namespace PoeNinja.Application.Utils
         public Dictionary<string, dynamic> vault;
 
         private static Vault instance;
-
-        public Vault()
-        {
-        }
 
         public static Vault GetVaultInstance()
         {
@@ -43,7 +40,7 @@ namespace PoeNinja.Application.Utils
 
             SkillsVault skills = JsonConvert.DeserializeObject<SkillsVault>(ConvertResponseToJson(response));
 
-            GetVaultInstance().vault[Constants.Gem] = skills;
+            vault[Constants.Gem] = skills;
         }
 
         public void SetJewelVault(RestClient client)
@@ -54,7 +51,7 @@ namespace PoeNinja.Application.Utils
 
             JewelsVault jewels = JsonConvert.DeserializeObject<JewelsVault>(ConvertResponseToJson(response));
 
-            instance.vault[Constants.Jewel] = jewels;
+            vault[Constants.Jewel] = jewels;
         }
     }
 }
