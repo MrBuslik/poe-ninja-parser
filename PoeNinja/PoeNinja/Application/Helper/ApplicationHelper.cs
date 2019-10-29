@@ -15,8 +15,8 @@ namespace PoeNinja.Application.Helper
     /// </summary>
     public abstract class ApplicationHelper
     {
-        protected static Dictionary<string, double> qualityDictionary = new Dictionary<string, double>();
-        protected static Dictionary<string, double> lvlDictionary = new Dictionary<string, double>();
+        protected static Dictionary<string, double> storageQualitySkills = new Dictionary<string, double>();
+        protected static Dictionary<string, double> storageLvlSkills = new Dictionary<string, double>();
 
         /// <summary>
         /// Returns response content in json format.
@@ -42,20 +42,18 @@ namespace PoeNinja.Application.Helper
             {
                 if (!skill.Corrupted && skill.GemLevel == 20 && skill.Variant.Equals("20"))
                 {
-                    InitLvlGem(skill);
+                    CollectLvlSkills(skill);
                 }
                 else if (!skill.Corrupted && skill.GemLevel == 1 && skill.GemQuality == 20)
                 {
-                    InitQualityGem(skill);
+                    CollectQualitySkills(skill);
                 }
             }
 
-            Console.WriteLine($"\nThere are Gems 20lvl/1% : {lvlDictionary.Count}");
-            Console.WriteLine($"There are Gems 1lvl/20% : {qualityDictionary.Count}\n");
+            Console.WriteLine($"\nThere are Gems 20lvl/1% : {storageLvlSkills.Count}");
+            Console.WriteLine($"There are Gems 1lvl/20% : {storageQualitySkills.Count}\n");
 
-            var final = lvlDictionary.Count < qualityDictionary.Count
-                ? CompareDict(lvlDictionary, qualityDictionary)
-                : CompareDict(qualityDictionary, lvlDictionary);
+            var final = ReceiveMargin(storageLvlSkills, storageQualitySkills);
 
             foreach (var variable in final)
             {
@@ -63,37 +61,67 @@ namespace PoeNinja.Application.Helper
             }
         }
 
-        private static void InitLvlGem(Gem gem)
+        /// <summary>
+        /// Records gem.Name and gem.Price to dictionary for gem 20lvl/0%quality.
+        /// </summary>
+        /// <param name="gem">Gem object.</param>
+        private static void CollectLvlSkills(Gem gem)
         {
-            lvlDictionary[gem.Name] = gem.ChaosValue;
+            storageLvlSkills[gem.Name] = gem.ChaosValue;
         }
 
-        private static void InitQualityGem(Gem gem)
+        /// <summary>
+        /// Records gem.Name and gem.Price to dictionary for gem 1lvl/20%quality.
+        /// </summary>
+        /// <param name="gem">Gem object.</param>
+        private static void CollectQualitySkills(Gem gem)
         {
-            qualityDictionary[gem.Name] = gem.ChaosValue;
+            storageQualitySkills[gem.Name] = gem.ChaosValue;
         }
 
-        private static Dictionary<string, double> CompareDict(
-            Dictionary<string, double> d1,
-            Dictionary<string, double> d2)
+        /// <summary>
+        /// Returns collection after comparison.
+        /// </summary>
+        /// <param name="one">Dictionary with item_name and item_price.</param>
+        /// <param name="two">same.</param>
+        /// <returns>Dictionary collection type.</returns>
+        private static Dictionary<string, double> ReceiveMargin(Dictionary<string, double> one,
+            Dictionary<string, double> two)
         {
-            Dictionary<string, double> finalDictionary = new Dictionary<string, double>();
+            Dictionary<string, double> smallDict = new Dictionary<string, double>();
+            Dictionary<string, double> bigDict = new Dictionary<string, double>();
+
+            bool isSmall = storageLvlSkills.Count < storageQualitySkills.Count;
+
+            switch (isSmall)
+            {
+                case true:
+                    smallDict = one;
+                    bigDict = two;
+                    break;
+                case false:
+                    smallDict = two;
+                    bigDict = one;
+                    break;
+            }
+
+            Dictionary<string, double> final = new Dictionary<string, double>();
 
             string key = string.Empty;
             double price;
 
-            foreach (var item in d1)
+            foreach (var item in smallDict)
             {
                 key = item.Key;
-                price = d2[key] - d1[key];
+                price = bigDict[key] - smallDict[key];
 
                 if (price > 7)
                 {
-                    finalDictionary[key] = price;
+                    final[key] = price;
                 }
             }
 
-            return finalDictionary;
+            return final;
         }
     }
 }
