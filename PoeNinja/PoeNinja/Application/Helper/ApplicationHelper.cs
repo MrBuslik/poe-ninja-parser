@@ -59,6 +59,40 @@ namespace PoeNinja.Application.Helper
             {
                 Console.WriteLine($"{variable.Key} : {variable.Value}");
             }
+
+            List<Jewel> jewels = vault.Storage[Constants.Jewel];
+
+            Console.WriteLine("-----JEWEL RECIPE-------");
+
+            double price = 0;
+
+            foreach (var jewel in jewels)
+            {
+                if (jewel.Name == "The Anima Stone")
+                {
+                    price = jewel.ChaosValue;
+                }
+
+                if (jewel.Name == "Primordial Might")
+                {
+                    price -= jewel.ChaosValue;
+                }
+
+                if (jewel.Name == "Primordial Harmony")
+                {
+                    price -= jewel.ChaosValue;
+                }
+
+                if (jewel.Name == "Primordial Eminence")
+                {
+                    price -= jewel.ChaosValue;
+
+                    Console.WriteLine("-----------------------");
+                }
+            }
+
+            Console.WriteLine($"Expected profit for craft jewel: {price}");
+            Console.WriteLine("-----------------------");
         }
 
         /// <summary>
