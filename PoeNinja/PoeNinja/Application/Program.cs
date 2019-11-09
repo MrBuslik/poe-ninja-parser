@@ -28,7 +28,7 @@ namespace PoeNinja.Application
             vault.SetSkillVault(client);
             vault.SetJewelVault(client);
 
-            TakeDataFromVault(vault);
+            GetProfitFromVault(vault);
         }
     }
 }

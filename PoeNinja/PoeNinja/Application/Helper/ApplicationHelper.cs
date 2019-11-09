@@ -34,7 +34,7 @@ namespace PoeNinja.Application.Helper
         /// Looks profit positions from vault.
         /// </summary>
         /// <param name="vault">vault with object dates.</param>
-        protected static void TakeDataFromVault(Vault vault)
+        protected static void GetProfitFromVault(Vault vault)
         {
             GetGemSalePrices(vault);
             GetJewelSalePrice(vault);
@@ -70,9 +70,7 @@ namespace PoeNinja.Application.Helper
             Dictionary<string, double> smallDict = new Dictionary<string, double>();
             Dictionary<string, double> bigDict = new Dictionary<string, double>();
 
-            bool isSmall = storageLvlSkills.Count < storageQualitySkills.Count;
-
-            switch (isSmall)
+            switch (storageLvlSkills.Count < storageQualitySkills.Count)
             {
                 case true:
                     smallDict = one;
@@ -103,6 +101,11 @@ namespace PoeNinja.Application.Helper
             return final;
         }
 
+        /// <summary>
+        /// Returns expected profit from SkillGems.
+        /// Profit gets from craft and sale on market.
+        /// </summary>
+        /// <param name="vault">vault with object dates.</param>
         protected static void GetGemSalePrices(Vault vault)
         {
             List<Gem> skills = vault.Storage[Constants.Gem];
@@ -130,6 +133,11 @@ namespace PoeNinja.Application.Helper
             }
         }
 
+        /// <summary>
+        /// Returns expected profit from The Anima Jewel.
+        /// Profit gets from craft and sale on market.
+        /// </summary>
+        /// <param name="vault">vault with object dates.</param>
         protected static void GetJewelSalePrice(Vault vault)
         {
             List<Jewel> jewels = vault.Storage[Constants.Jewel];
