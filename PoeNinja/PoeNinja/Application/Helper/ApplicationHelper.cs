@@ -36,63 +36,8 @@ namespace PoeNinja.Application.Helper
         /// <param name="vault">vault with object dates.</param>
         protected static void TakeDataFromVault(Vault vault)
         {
-            List<Gem> skills = vault.Storage[Constants.Gem];
-
-            foreach (var skill in skills)
-            {
-                if (!skill.Corrupted && skill.GemLevel == 20 && skill.Variant.Equals("20"))
-                {
-                    CollectLvlSkills(skill);
-                }
-                else if (!skill.Corrupted && skill.GemLevel == 1 && skill.GemQuality == 20)
-                {
-                    CollectQualitySkills(skill);
-                }
-            }
-
-            Console.WriteLine($"\nThere are Gems 20lvl/1% : {storageLvlSkills.Count}");
-            Console.WriteLine($"There are Gems 1lvl/20% : {storageQualitySkills.Count}\n");
-
-            var final = ReceiveMargin(storageLvlSkills, storageQualitySkills);
-
-            foreach (var variable in final)
-            {
-                Console.WriteLine($"{variable.Key} : {variable.Value}");
-            }
-
-            List<Jewel> jewels = vault.Storage[Constants.Jewel];
-
-            Console.WriteLine("-----JEWEL RECIPE-------");
-
-            double price = 0;
-
-            foreach (var jewel in jewels)
-            {
-                if (jewel.Name == "The Anima Stone")
-                {
-                    price = jewel.ChaosValue;
-                }
-
-                if (jewel.Name == "Primordial Might")
-                {
-                    price -= jewel.ChaosValue;
-                }
-
-                if (jewel.Name == "Primordial Harmony")
-                {
-                    price -= jewel.ChaosValue;
-                }
-
-                if (jewel.Name == "Primordial Eminence")
-                {
-                    price -= jewel.ChaosValue;
-
-                    Console.WriteLine("-----------------------");
-                }
-            }
-
-            Console.WriteLine($"Expected profit for craft jewel: {price}");
-            Console.WriteLine("-----------------------");
+            GetGemSalePrices(vault);
+            GetJewelSalePrice(vault);
         }
 
         /// <summary>
@@ -156,6 +101,70 @@ namespace PoeNinja.Application.Helper
             }
 
             return final;
+        }
+
+        protected static void GetGemSalePrices(Vault vault)
+        {
+            List<Gem> skills = vault.Storage[Constants.Gem];
+
+            foreach (var skill in skills)
+            {
+                if (!skill.Corrupted && skill.GemLevel == 20 && skill.Variant.Equals("20"))
+                {
+                    CollectLvlSkills(skill);
+                }
+                else if (!skill.Corrupted && skill.GemLevel == 1 && skill.GemQuality == 20)
+                {
+                    CollectQualitySkills(skill);
+                }
+            }
+
+            Console.WriteLine($"\nThere are Gems 20lvl/1% : {storageLvlSkills.Count}");
+            Console.WriteLine($"There are Gems 1lvl/20% : {storageQualitySkills.Count}\n");
+
+            var final = ReceiveMargin(storageLvlSkills, storageQualitySkills);
+
+            foreach (var variable in final)
+            {
+                Console.WriteLine($"{variable.Key} : {variable.Value}");
+            }
+        }
+
+        protected static void GetJewelSalePrice(Vault vault)
+        {
+            List<Jewel> jewels = vault.Storage[Constants.Jewel];
+
+            Console.WriteLine("\n-----JEWEL RECIPE-------");
+            Console.WriteLine("Primordial Might\nPrimordial Harmony\nPrimordial Eminence");
+
+            double price = 0;
+
+            foreach (var jewel in jewels)
+            {
+                if (jewel.Name == "The Anima Stone")
+                {
+                    price = jewel.ChaosValue;
+                }
+
+                if (jewel.Name == "Primordial Might")
+                {
+                    price -= jewel.ChaosValue;
+                }
+
+                if (jewel.Name == "Primordial Harmony")
+                {
+                    price -= jewel.ChaosValue;
+                }
+
+                if (jewel.Name == "Primordial Eminence")
+                {
+                    price -= jewel.ChaosValue;
+                }
+            }
+
+            Console.WriteLine("-----------------------");
+            Console.WriteLine($"From sale you will get : {price}");
+            Console.WriteLine("-----------------------");
         }
     }
 }
