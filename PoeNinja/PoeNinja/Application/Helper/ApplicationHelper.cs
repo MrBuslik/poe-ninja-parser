@@ -6,6 +6,7 @@ namespace PoeNinja.Application.Helper
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Items.Models;
     using RestSharp;
     using Utils;
@@ -158,7 +159,7 @@ namespace PoeNinja.Application.Helper
                 }
             }
 
-            return final;
+            return final.OrderByDescending(x => x.Value).ToDictionary(y => y.Key, z => z.Value);
         }
     }
 }
