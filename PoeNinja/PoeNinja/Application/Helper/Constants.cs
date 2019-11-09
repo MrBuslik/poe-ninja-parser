@@ -10,7 +10,7 @@ namespace PoeNinja.Application.Helper
     public static class Constants
     {
         // Endpoint
-        public const string Url = "https://poe.ninja/api/data/itemoverview";
+        public const string Url = "??????";
 
         // League
         public const string League = "Blight";
