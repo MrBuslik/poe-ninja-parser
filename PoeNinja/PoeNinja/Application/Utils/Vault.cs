@@ -5,7 +5,6 @@
 namespace PoeNinja.Application.Utils
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Helper;
     using Items.Models;
     using Items.Vaults;
@@ -36,10 +35,10 @@ namespace PoeNinja.Application.Utils
         {
             ResponseWrapper responseWrapper = new ResponseWrapper(client);
 
-            var response = responseWrapper.GetSkillInfo();
+            var response = responseWrapper.GetSkillsInfo();
 
             SkillStorage storage = JsonConvert.DeserializeObject<SkillStorage>(ConvertResponseToJson(response));
-            List<Gem> skills = storage.SkillGems;
+            List<Gem> skills = storage.Skills;
 
             Storage[Constants.Gem] = skills;
         }
@@ -54,6 +53,18 @@ namespace PoeNinja.Application.Utils
             List<Jewel> jewels = storage.Jewels;
 
             Storage[Constants.Jewel] = jewels;
+        }
+
+        public void SetWeaponVault(RestClient client)
+        {
+            ResponseWrapper responseWrapper = new ResponseWrapper(client);
+
+            var response = responseWrapper.GetWeaponsInfo();
+
+            WeaponStorage storage = JsonConvert.DeserializeObject<WeaponStorage>(ConvertResponseToJson(response));
+            List<Weapon> weapons = storage.Weapons;
+
+            Storage[Constants.Weapon] = weapons;
         }
     }
 }

@@ -36,6 +36,8 @@ namespace PoeNinja.Application.Helper
         {
             GetGemSalePrices(vault);
             GetJewelSalePrice(vault);
+            GetBowSalePrice(vault);
+            GetAxeSalePrice(vault);
         }
 
         /// <summary>
@@ -74,7 +76,7 @@ namespace PoeNinja.Application.Helper
                 Console.WriteLine($"{variable.Key} : {variable.Value}");
             }
 
-            Console.WriteLine("-------------------------------");
+            Console.WriteLine("------------------------------");
         }
 
         /// <summary>
@@ -114,9 +116,91 @@ namespace PoeNinja.Application.Helper
                 }
             }
 
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("------------------------------");
             Console.WriteLine($"From sale you will get : {price}");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("------------------------------");
+        }
+
+        protected static void GetBowSalePrice(Vault vault)
+        {
+            List<Weapon> weapons = vault.Storage[Constants.Weapon];
+
+            Console.WriteLine("\n-----BOW RECIPE-------");
+            Console.WriteLine("Grelwood Shank\nBeltimber Blade\n1 orb of fuse");
+            Console.WriteLine("------------------------------");
+
+            double price = 0;
+
+            foreach (var weapon in weapons)
+            {
+                if (weapon.Name == "Grelwood Shank")
+                {
+                    price += weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Beltimber Blade")
+                {
+                    price += weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Arborix" && weapon.Links == 6)
+                {
+                    Console.WriteLine($"From sale 6-link bow you will get: {weapon.ChaosValue - price}");
+                }
+
+                if (weapon.Name == "Arborix" && weapon.Links == 5)
+                {
+                    Console.WriteLine($"From sale 5-link bow you will get: {weapon.ChaosValue - price}");
+                }
+
+                if (weapon.Name == "Arborix" && weapon.Links == 0)
+                {
+                    Console.WriteLine($"From sale 0-4 link bow you will get: {weapon.ChaosValue - price}");
+                }
+            }
+
+            Console.WriteLine("------------------------------");
+        }
+
+        protected static void GetAxeSalePrice(Vault vault)
+        {
+            List<Weapon> weapons = vault.Storage[Constants.Weapon];
+
+            Console.WriteLine("\n-----AXE RECIPE-------");
+            Console.WriteLine("Soul Taker\nHeartbreaker\n1 orb of fuse");
+            Console.WriteLine("------------------------------");
+
+            double price = 0;
+
+            foreach (var weapon in weapons)
+            {
+                if (weapon.Name == "Soul Taker")
+                {
+                    price += weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Heartbreaker")
+                {
+                    price += weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Kingmaker" && weapon.Links == 6)
+                {
+                    Console.WriteLine($"From sale 6-link axe you will get: {weapon.ChaosValue - price}");
+                }
+
+                if (weapon.Name == "Kingmaker" && weapon.Links == 5)
+                {
+                    Console.WriteLine($"From sale 5-link axe you will get: {weapon.ChaosValue - price}");
+                }
+
+                if (weapon.Name == "Kingmaker" && weapon.Links == 0)
+                {
+                    Console.WriteLine($"From sale 0-4 link axe you will get: {weapon.ChaosValue - price}");
+                }
+            }
+
+            Console.WriteLine("------------------------------");
         }
 
         /// <summary>

@@ -27,7 +27,7 @@ namespace PoeNinja.Application.Utils
         /// Returns response about Skill Gems.
         /// </summary>
         /// <returns>RestResponse typo.</returns>
-        public IRestResponse GetSkillInfo()
+        public IRestResponse GetSkillsInfo()
         {
             RestRequest request = new RestRequest
             {
@@ -55,6 +55,25 @@ namespace PoeNinja.Application.Utils
                 {
                     new Parameter("league", Constants.League, ParameterType.QueryString),
                     new Parameter("type", Constants.Jewel, ParameterType.QueryString),
+                },
+            };
+
+            return client.Execute(request);
+        }
+
+        /// <summary>
+        /// Returns response about Jewels.
+        /// </summary>
+        /// <returns>RestResponse.</returns>
+        public IRestResponse GetWeaponsInfo()
+        {
+            RestRequest request = new RestRequest
+            {
+                Method = Method.GET,
+                Parameters =
+                {
+                    new Parameter("league", Constants.League, ParameterType.QueryString),
+                    new Parameter("type", Constants.Weapon, ParameterType.QueryString),
                 },
             };
 
