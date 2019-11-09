@@ -9,10 +9,10 @@ namespace PoeNinja.Application.Helper
     /// </summary>
     public static class Constants
     {
-        // Endpoints
+        // Endpoint
         public const string Url = "https://poe.ninja/api/data/itemoverview";
 
-        // Leagues
+        // League
         public const string League = "Blight";
 
         // Items

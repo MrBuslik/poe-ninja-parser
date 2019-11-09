@@ -15,9 +15,6 @@ namespace PoeNinja.Application.Helper
     /// </summary>
     public abstract class ApplicationHelper
     {
-        protected static Dictionary<string, double> storageQualitySkills = new Dictionary<string, double>();
-        protected static Dictionary<string, double> storageLvlSkills = new Dictionary<string, double>();
-
         /// <summary>
         /// Returns response content in json format.
         /// </summary>
@@ -41,84 +38,26 @@ namespace PoeNinja.Application.Helper
         }
 
         /// <summary>
-        /// Records gem.Name and gem.Price to dictionary for gem 20lvl/0%quality.
-        /// </summary>
-        /// <param name="gem">Gem object.</param>
-        private static void CollectLvlSkills(Gem gem)
-        {
-            storageLvlSkills[gem.Name] = gem.ChaosValue;
-        }
-
-        /// <summary>
-        /// Records gem.Name and gem.Price to dictionary for gem 1lvl/20%quality.
-        /// </summary>
-        /// <param name="gem">Gem object.</param>
-        private static void CollectQualitySkills(Gem gem)
-        {
-            storageQualitySkills[gem.Name] = gem.ChaosValue;
-        }
-
-        /// <summary>
-        /// Returns collection after comparison.
-        /// </summary>
-        /// <param name="one">Dictionary with item_name and item_price.</param>
-        /// <param name="two">same.</param>
-        /// <returns>Dictionary collection type.</returns>
-        private static Dictionary<string, double> ReceiveMargin(Dictionary<string, double> one,
-            Dictionary<string, double> two)
-        {
-            Dictionary<string, double> smallDict = new Dictionary<string, double>();
-            Dictionary<string, double> bigDict = new Dictionary<string, double>();
-
-            switch (storageLvlSkills.Count < storageQualitySkills.Count)
-            {
-                case true:
-                    smallDict = one;
-                    bigDict = two;
-                    break;
-                case false:
-                    smallDict = two;
-                    bigDict = one;
-                    break;
-            }
-
-            Dictionary<string, double> final = new Dictionary<string, double>();
-
-            string key = string.Empty;
-            double price;
-
-            foreach (var item in smallDict)
-            {
-                key = item.Key;
-                price = bigDict[key] - smallDict[key];
-
-                if (price > 7)
-                {
-                    final[key] = price;
-                }
-            }
-
-            return final;
-        }
-
-        /// <summary>
         /// Returns expected profit from SkillGems.
         /// Profit gets from craft and sale on market.
         /// </summary>
         /// <param name="vault">vault with object dates.</param>
         protected static void GetGemSalePrices(Vault vault)
         {
+            Dictionary<string, double> storageQualitySkills = new Dictionary<string, double>();
+            Dictionary<string, double> storageLvlSkills = new Dictionary<string, double>();
+
             List<Gem> skills = vault.Storage[Constants.Gem];
 
             foreach (var skill in skills)
             {
                 if (!skill.Corrupted && skill.GemLevel == 20 && skill.Variant.Equals("20"))
                 {
-                    CollectLvlSkills(skill);
+                    storageLvlSkills[skill.Name] = skill.ChaosValue;
                 }
                 else if (!skill.Corrupted && skill.GemLevel == 1 && skill.GemQuality == 20)
                 {
-                    CollectQualitySkills(skill);
+                    storageQualitySkills[skill.Name] = skill.ChaosValue;
                 }
             }
 
@@ -127,10 +66,14 @@ namespace PoeNinja.Application.Helper
 
             var final = ReceiveMargin(storageLvlSkills, storageQualitySkills);
 
+            Console.WriteLine("-------Skills for sale---------");
+
             foreach (var variable in final)
             {
                 Console.WriteLine($"{variable.Key} : {variable.Value}");
             }
+
+            Console.WriteLine("-------------------------------");
         }
 
         /// <summary>
@@ -173,6 +116,49 @@ namespace PoeNinja.Application.Helper
             Console.WriteLine("-----------------------");
             Console.WriteLine($"From sale you will get : {price}");
             Console.WriteLine("-----------------------");
+        }
+
+        /// <summary>
+        /// Returns dictionary collection after custom comparing.
+        /// </summary>
+        /// <param name="one">Dictionary with item_name and item_price.</param>
+        /// <param name="two">same.</param>
+        /// <returns>Dictionary collection with item for sale.</returns>
+        private static Dictionary<string, double> ReceiveMargin(Dictionary<string, double> one,
+            Dictionary<string, double> two)
+        {
+            Dictionary<string, double> smallDict = new Dictionary<string, double>();
+            Dictionary<string, double> bigDict = new Dictionary<string, double>();
+
+            switch (one.Count <= two.Count)
+            {
+                case true:
+                    smallDict = one;
+                    bigDict = two;
+                    break;
+                case false:
+                    smallDict = two;
+                    bigDict = one;
+                    break;
+            }
+
+            Dictionary<string, double> final = new Dictionary<string, double>();
+
+            string key = string.Empty;
+            double price;
+
+            foreach (var item in smallDict)
+            {
+                key = item.Key;
+                price = bigDict[key] - smallDict[key];
+
+                if (price > 7)
+                {
+                    final[key] = price;
+                }
+            }
+
+            return final;
         }
     }
 }
