@@ -2,7 +2,7 @@
 // Copyright (c) YLazakovich. All rights reserved.
 // </copyright>
 
-namespace PoeNinja.Application.Items
+namespace PoeNinja.Application.Items.Models
 {
     using Newtonsoft.Json;
 

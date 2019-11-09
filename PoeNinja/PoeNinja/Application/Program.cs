@@ -6,8 +6,6 @@ namespace PoeNinja.Application
 {
     using System;
     using Helper;
-    using Items;
-    using Newtonsoft.Json;
     using RestSharp;
     using Utils;
 
@@ -26,13 +24,11 @@ namespace PoeNinja.Application
                 BaseUrl = new Uri(Constants.Url)
             };
 
-            ResponseWrapper responseWrapper = new ResponseWrapper(client);
+            Vault vault = Vault.GetVaultInstance();
+            vault.SetSkillVault(client);
+            vault.SetJewelVault(client);
 
-            var response = responseWrapper.GetSkillInfo();
-
-            ItemVault vault = JsonConvert.DeserializeObject<ItemVault>(ConvertResponseToJson(response));
-
-            TakeDataFromVault(vault);
+            GetProfitFromVault(vault);
         }
     }
 }

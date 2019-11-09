@@ -6,16 +6,17 @@ namespace PoeNinja.Application.Helper
 {
     using System;
     using System.Collections.Generic;
-    using Items;
+    using Items.Models;
     using RestSharp;
+    using Utils;
 
     /// <summary>
     /// Helper class.
     /// </summary>
     public abstract class ApplicationHelper
     {
-        protected static Dictionary<string, double> qualityDictionary = new Dictionary<string, double>();
-        protected static Dictionary<string, double> lvlDictionary = new Dictionary<string, double>();
+        protected static Dictionary<string, double> storageQualitySkills = new Dictionary<string, double>();
+        protected static Dictionary<string, double> storageLvlSkills = new Dictionary<string, double>();
 
         /// <summary>
         /// Returns response content in json format.
@@ -33,64 +34,145 @@ namespace PoeNinja.Application.Helper
         /// Looks profit positions from vault.
         /// </summary>
         /// <param name="vault">vault with object dates.</param>
-        protected static void TakeDataFromVault(ItemVault vault)
+        protected static void GetProfitFromVault(Vault vault)
         {
-            foreach (var item in vault.SkillGems)
+            GetGemSalePrices(vault);
+            GetJewelSalePrice(vault);
+        }
+
+        /// <summary>
+        /// Records gem.Name and gem.Price to dictionary for gem 20lvl/0%quality.
+        /// </summary>
+        /// <param name="gem">Gem object.</param>
+        private static void CollectLvlSkills(Gem gem)
+        {
+            storageLvlSkills[gem.Name] = gem.ChaosValue;
+        }
+
+        /// <summary>
+        /// Records gem.Name and gem.Price to dictionary for gem 1lvl/20%quality.
+        /// </summary>
+        /// <param name="gem">Gem object.</param>
+        private static void CollectQualitySkills(Gem gem)
+        {
+            storageQualitySkills[gem.Name] = gem.ChaosValue;
+        }
+
+        /// <summary>
+        /// Returns collection after comparison.
+        /// </summary>
+        /// <param name="one">Dictionary with item_name and item_price.</param>
+        /// <param name="two">same.</param>
+        /// <returns>Dictionary collection type.</returns>
+        private static Dictionary<string, double> ReceiveMargin(Dictionary<string, double> one,
+            Dictionary<string, double> two)
+        {
+            Dictionary<string, double> smallDict = new Dictionary<string, double>();
+            Dictionary<string, double> bigDict = new Dictionary<string, double>();
+
+            switch (storageLvlSkills.Count < storageQualitySkills.Count)
             {
-                if (!item.Corrupted && item.GemLevel == 20 && item.Variant.Equals("20"))
-                {
-                    InitLvlGem(item);
-                }
-                else if (!item.Corrupted && item.GemLevel == 1 && item.GemQuality == 20)
-                {
-                    InitQualityGem(item);
-                }
+                case true:
+                    smallDict = one;
+                    bigDict = two;
+                    break;
+                case false:
+                    smallDict = two;
+                    bigDict = one;
+                    break;
             }
 
-            Console.WriteLine($"\nThere are Gems 20lvl/1% : {lvlDictionary.Count}");
-            Console.WriteLine($"There are Gems 1lvl/20% : {qualityDictionary.Count}\n");
-
-            var final = lvlDictionary.Count < qualityDictionary.Count
-                ? CompareDict(lvlDictionary, qualityDictionary)
-                : CompareDict(qualityDictionary, lvlDictionary);
-
-            foreach (var VARIABLE in final)
-            {
-                Console.WriteLine($"{VARIABLE.Key} : {VARIABLE.Value}");
-            }
-        }
-
-        private static void InitLvlGem(Gem gem)
-        {
-            lvlDictionary[gem.Name] = gem.ChaosValue;
-        }
-
-        private static void InitQualityGem(Gem gem)
-        {
-            qualityDictionary[gem.Name] = gem.ChaosValue;
-        }
-
-        private static Dictionary<string, double> CompareDict(
-            Dictionary<string, double> d1,
-            Dictionary<string, double> d2)
-        {
-            Dictionary<string, double> finalDictionary = new Dictionary<string, double>();
+            Dictionary<string, double> final = new Dictionary<string, double>();
 
             string key = string.Empty;
             double price;
 
-            foreach (var item in d1)
+            foreach (var item in smallDict)
             {
                 key = item.Key;
-                price = d2[key] - d1[key];
+                price = bigDict[key] - smallDict[key];
 
                 if (price > 7)
                 {
-                    finalDictionary[key] = price;
+                    final[key] = price;
                 }
             }
 
-            return finalDictionary;
+            return final;
+        }
+
+        /// <summary>
+        /// Returns expected profit from SkillGems.
+        /// Profit gets from craft and sale on market.
+        /// </summary>
+        /// <param name="vault">vault with object dates.</param>
+        protected static void GetGemSalePrices(Vault vault)
+        {
+            List<Gem> skills = vault.Storage[Constants.Gem];
+
+            foreach (var skill in skills)
+            {
+                if (!skill.Corrupted && skill.GemLevel == 20 && skill.Variant.Equals("20"))
+                {
+                    CollectLvlSkills(skill);
+                }
+                else if (!skill.Corrupted && skill.GemLevel == 1 && skill.GemQuality == 20)
+                {
+                    CollectQualitySkills(skill);
+                }
+            }
+
+            Console.WriteLine($"\nThere are Gems 20lvl/1% : {storageLvlSkills.Count}");
+            Console.WriteLine($"There are Gems 1lvl/20% : {storageQualitySkills.Count}\n");
+
+            var final = ReceiveMargin(storageLvlSkills, storageQualitySkills);
+
+            foreach (var variable in final)
+            {
+                Console.WriteLine($"{variable.Key} : {variable.Value}");
+            }
+        }
+
+        /// <summary>
+        /// Returns expected profit from The Anima Jewel.
+        /// Profit gets from craft and sale on market.
+        /// </summary>
+        /// <param name="vault">vault with object dates.</param>
+        protected static void GetJewelSalePrice(Vault vault)
+        {
+            List<Jewel> jewels = vault.Storage[Constants.Jewel];
+
+            Console.WriteLine("\n-----JEWEL RECIPE-------");
+            Console.WriteLine("Primordial Might\nPrimordial Harmony\nPrimordial Eminence");
+
+            double price = 0;
+
+            foreach (var jewel in jewels)
+            {
+                if (jewel.Name == "The Anima Stone")
+                {
+                    price = jewel.ChaosValue;
+                }
+
+                if (jewel.Name == "Primordial Might")
+                {
+                    price -= jewel.ChaosValue;
+                }
+
+                if (jewel.Name == "Primordial Harmony")
+                {
+                    price -= jewel.ChaosValue;
+                }
+
+                if (jewel.Name == "Primordial Eminence")
+                {
+                    price -= jewel.ChaosValue;
+                }
+            }
+
+            Console.WriteLine("-----------------------");
+            Console.WriteLine($"From sale you will get : {price}");
+            Console.WriteLine("-----------------------");
         }
     }
 }
