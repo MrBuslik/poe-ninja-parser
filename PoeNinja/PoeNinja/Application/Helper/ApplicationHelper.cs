@@ -64,12 +64,12 @@ namespace PoeNinja.Application.Helper
                 }
             }
 
-            Console.WriteLine($"\nThere are Gems 20lvl/1% : {storageLvlSkills.Count}");
-            Console.WriteLine($"There are Gems 1lvl/20% : {storageQualitySkills.Count}\n");
-
             var final = ReceiveMargin(storageLvlSkills, storageQualitySkills);
 
             Console.WriteLine("-------Skills for sale---------");
+            Console.WriteLine($"There are Gems 20lvl/1% : {storageLvlSkills.Count}");
+            Console.WriteLine($"There are Gems 1lvl/20% : {storageQualitySkills.Count}");
+            Console.WriteLine("------------------------------");
 
             foreach (var variable in final)
             {
