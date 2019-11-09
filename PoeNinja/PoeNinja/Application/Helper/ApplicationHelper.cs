@@ -6,6 +6,7 @@ namespace PoeNinja.Application.Helper
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Items.Models;
     using RestSharp;
     using Utils;
@@ -15,9 +16,6 @@ namespace PoeNinja.Application.Helper
     /// </summary>
     public abstract class ApplicationHelper
     {
-        protected static Dictionary<string, double> storageQualitySkills = new Dictionary<string, double>();
-        protected static Dictionary<string, double> storageLvlSkills = new Dictionary<string, double>();
-
         /// <summary>
         /// Returns response content in json format.
         /// </summary>
@@ -38,67 +36,8 @@ namespace PoeNinja.Application.Helper
         {
             GetGemSalePrices(vault);
             GetJewelSalePrice(vault);
-        }
-
-        /// <summary>
-        /// Records gem.Name and gem.Price to dictionary for gem 20lvl/0%quality.
-        /// </summary>
-        /// <param name="gem">Gem object.</param>
-        private static void CollectLvlSkills(Gem gem)
-        {
-            storageLvlSkills[gem.Name] = gem.ChaosValue;
-        }
-
-        /// <summary>
-        /// Records gem.Name and gem.Price to dictionary for gem 1lvl/20%quality.
-        /// </summary>
-        /// <param name="gem">Gem object.</param>
-        private static void CollectQualitySkills(Gem gem)
-        {
-            storageQualitySkills[gem.Name] = gem.ChaosValue;
-        }
-
-        /// <summary>
-        /// Returns collection after comparison.
-        /// </summary>
-        /// <param name="one">Dictionary with item_name and item_price.</param>
-        /// <param name="two">same.</param>
-        /// <returns>Dictionary collection type.</returns>
-        private static Dictionary<string, double> ReceiveMargin(Dictionary<string, double> one,
-            Dictionary<string, double> two)
-        {
-            Dictionary<string, double> smallDict = new Dictionary<string, double>();
-            Dictionary<string, double> bigDict = new Dictionary<string, double>();
-
-            switch (storageLvlSkills.Count < storageQualitySkills.Count)
-            {
-                case true:
-                    smallDict = one;
-                    bigDict = two;
-                    break;
-                case false:
-                    smallDict = two;
-                    bigDict = one;
-                    break;
-            }
-
-            Dictionary<string, double> final = new Dictionary<string, double>();
-
-            string key = string.Empty;
-            double price;
-
-            foreach (var item in smallDict)
-            {
-                key = item.Key;
-                price = bigDict[key] - smallDict[key];
-
-                if (price > 7)
-                {
-                    final[key] = price;
-                }
-            }
-
-            return final;
+            GetBowSalePrice(vault);
+            GetAxeSalePrice(vault);
         }
 
         /// <summary>
@@ -108,29 +47,36 @@ namespace PoeNinja.Application.Helper
         /// <param name="vault">vault with object dates.</param>
         protected static void GetGemSalePrices(Vault vault)
         {
+            Dictionary<string, double> storageQualitySkills = new Dictionary<string, double>();
+            Dictionary<string, double> storageLvlSkills = new Dictionary<string, double>();
+
             List<Gem> skills = vault.Storage[Constants.Gem];
 
             foreach (var skill in skills)
             {
                 if (!skill.Corrupted && skill.GemLevel == 20 && skill.Variant.Equals("20"))
                 {
-                    CollectLvlSkills(skill);
+                    storageLvlSkills[skill.Name] = skill.ChaosValue;
                 }
                 else if (!skill.Corrupted && skill.GemLevel == 1 && skill.GemQuality == 20)
                 {
-                    CollectQualitySkills(skill);
+                    storageQualitySkills[skill.Name] = skill.ChaosValue;
                 }
             }
 
-            Console.WriteLine($"\nThere are Gems 20lvl/1% : {storageLvlSkills.Count}");
-            Console.WriteLine($"There are Gems 1lvl/20% : {storageQualitySkills.Count}\n");
-
             var final = ReceiveMargin(storageLvlSkills, storageQualitySkills);
+
+            Console.WriteLine("-------Skills for sale---------");
+            Console.WriteLine($"There are Gems 20lvl/1% : {storageLvlSkills.Count}");
+            Console.WriteLine($"There are Gems 1lvl/20% : {storageQualitySkills.Count}");
+            Console.WriteLine("------------------------------");
 
             foreach (var variable in final)
             {
                 Console.WriteLine($"{variable.Key} : {variable.Value}");
             }
+
+            Console.WriteLine("------------------------------");
         }
 
         /// <summary>
@@ -170,9 +116,134 @@ namespace PoeNinja.Application.Helper
                 }
             }
 
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("------------------------------");
             Console.WriteLine($"From sale you will get : {price}");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("------------------------------");
+        }
+
+        protected static void GetBowSalePrice(Vault vault)
+        {
+            List<Weapon> weapons = vault.Storage[Constants.Weapon];
+
+            Console.WriteLine("\n-----BOW RECIPE-------");
+            Console.WriteLine("Grelwood Shank\nBeltimber Blade\n1 orb of fuse");
+            Console.WriteLine("------------------------------");
+
+            double price = 0;
+
+            foreach (var weapon in weapons)
+            {
+                if (weapon.Name == "Grelwood Shank")
+                {
+                    price += weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Beltimber Blade")
+                {
+                    price += weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Arborix" && weapon.Links == 6)
+                {
+                    Console.WriteLine($"From sale 6-link bow you will get: {weapon.ChaosValue - price}");
+                }
+
+                if (weapon.Name == "Arborix" && weapon.Links == 5)
+                {
+                    Console.WriteLine($"From sale 5-link bow you will get: {weapon.ChaosValue - price}");
+                }
+
+                if (weapon.Name == "Arborix" && weapon.Links == 0)
+                {
+                    Console.WriteLine($"From sale 0-4 link bow you will get: {weapon.ChaosValue - price}");
+                }
+            }
+
+            Console.WriteLine("------------------------------");
+        }
+
+        protected static void GetAxeSalePrice(Vault vault)
+        {
+            List<Weapon> weapons = vault.Storage[Constants.Weapon];
+
+            Console.WriteLine("\n-----AXE RECIPE-------");
+            Console.WriteLine("Soul Taker\nHeartbreaker\n1 orb of fuse");
+            Console.WriteLine("------------------------------");
+
+            double price = 0;
+
+            foreach (var weapon in weapons)
+            {
+                if (weapon.Name == "Soul Taker")
+                {
+                    price += weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Heartbreaker")
+                {
+                    price += weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Kingmaker" && weapon.Links == 6)
+                {
+                    Console.WriteLine($"From sale 6-link axe you will get: {weapon.ChaosValue - price}");
+                }
+
+                if (weapon.Name == "Kingmaker" && weapon.Links == 5)
+                {
+                    Console.WriteLine($"From sale 5-link axe you will get: {weapon.ChaosValue - price}");
+                }
+
+                if (weapon.Name == "Kingmaker" && weapon.Links == 0)
+                {
+                    Console.WriteLine($"From sale 0-4 link axe you will get: {weapon.ChaosValue - price}");
+                }
+            }
+
+            Console.WriteLine("------------------------------");
+        }
+
+        /// <summary>
+        /// Returns dictionary collection after custom comparing.
+        /// </summary>
+        /// <param name="one">Dictionary with item_name and item_price.</param>
+        /// <param name="two">same.</param>
+        /// <returns>Dictionary collection with item for sale.</returns>
+        private static Dictionary<string, double> ReceiveMargin(Dictionary<string, double> one,
+            Dictionary<string, double> two)
+        {
+            Dictionary<string, double> smallDict = new Dictionary<string, double>();
+            Dictionary<string, double> bigDict = new Dictionary<string, double>();
+
+            switch (one.Count <= two.Count)
+            {
+                case true:
+                    smallDict = one;
+                    bigDict = two;
+                    break;
+                case false:
+                    smallDict = two;
+                    bigDict = one;
+                    break;
+            }
+
+            Dictionary<string, double> final = new Dictionary<string, double>();
+
+            string key = string.Empty;
+            double price;
+
+            foreach (var item in smallDict)
+            {
+                key = item.Key;
+                price = bigDict[key] - smallDict[key];
+
+                if (price > 7)
+                {
+                    final[key] = price;
+                }
+            }
+
+            return final.OrderByDescending(x => x.Value).ToDictionary(y => y.Key, z => z.Value);
         }
     }
 }

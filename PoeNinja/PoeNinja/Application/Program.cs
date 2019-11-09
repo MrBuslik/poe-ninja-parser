@@ -27,6 +27,7 @@ namespace PoeNinja.Application
             Vault vault = Vault.GetVaultInstance();
             vault.SetSkillVault(client);
             vault.SetJewelVault(client);
+            vault.SetWeaponVault(client);
 
             GetProfitFromVault(vault);
         }

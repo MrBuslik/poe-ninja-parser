@@ -14,6 +14,6 @@ namespace PoeNinja.Application.Items.Vaults
     public class SkillStorage
     {
         [JsonProperty("lines")]
-        public List<Gem> SkillGems { get; private set; }
+        public List<Gem> Skills { get; private set; }
     }
 }
