@@ -6,7 +6,7 @@ for craft and trade in Path of Exile
 ## Key Features
 * Quickly search of all profitable skills
 * Quickly search Anima Stone
-* Quickly search Weapon Kingmaker
+* Quickly search Axe Kingmaker
 * Quickly search Bow Arborix  
 
 ## RESULT
