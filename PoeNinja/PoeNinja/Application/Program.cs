@@ -29,7 +29,6 @@ namespace PoeNinja.Application
             vault.SetJewelVault(client);
 
             TakeDataFromVault(vault);
-            Console.WriteLine("check-actual-branch");
         }
     }
 }
