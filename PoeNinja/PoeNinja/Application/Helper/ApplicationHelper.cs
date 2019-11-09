@@ -209,7 +209,8 @@ namespace PoeNinja.Application.Helper
         /// <param name="one">Dictionary with item_name and item_price.</param>
         /// <param name="two">same.</param>
         /// <returns>Dictionary collection with item for sale.</returns>
-        private static Dictionary<string, double> ReceiveMargin(Dictionary<string, double> one,
+        private static Dictionary<string, double> ReceiveMargin(
+            Dictionary<string, double> one,
             Dictionary<string, double> two)
         {
             Dictionary<string, double> smallDict = new Dictionary<string, double>();
