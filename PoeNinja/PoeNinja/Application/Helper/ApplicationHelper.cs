@@ -34,7 +34,7 @@ namespace PoeNinja.Application.Helper
         /// <param name="vault">vault with object dates.</param>
         protected static void GetProfitFromVault(Vault vault)
         {
-            GetGemSalePrices(vault);
+            GetSkillsSalePrices(vault);
             GetJewelSalePrice(vault);
             GetBowSalePrice(vault);
             GetAxeSalePrice(vault);
@@ -45,7 +45,7 @@ namespace PoeNinja.Application.Helper
         /// Profit gets from craft and sale on market.
         /// </summary>
         /// <param name="vault">vault with object dates.</param>
-        protected static void GetGemSalePrices(Vault vault)
+        protected static void GetSkillsSalePrices(Vault vault)
         {
             Dictionary<string, double> storageQualitySkills = new Dictionary<string, double>();
             Dictionary<string, double> storageLvlSkills = new Dictionary<string, double>();
@@ -67,8 +67,8 @@ namespace PoeNinja.Application.Helper
             var final = ReceiveMargin(storageLvlSkills, storageQualitySkills);
 
             Console.WriteLine("-------Skills for sale---------");
-            Console.WriteLine($"There are Gems 20lvl/1% : {storageLvlSkills.Count}");
-            Console.WriteLine($"There are Gems 1lvl/20% : {storageQualitySkills.Count}");
+            Console.WriteLine($"There are Skills 20lvl/1% : {storageLvlSkills.Count}");
+            Console.WriteLine($"There are Skills 1lvl/20% : {storageQualitySkills.Count}");
             Console.WriteLine("------------------------------");
 
             foreach (var variable in final)
