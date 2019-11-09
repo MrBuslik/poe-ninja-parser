@@ -17,5 +17,5 @@ for craft and trade in Path of Exile
 Do you have profit idea? You can write me, I will answer
 
 Link for communication: 
-Gmail: ylazakovich@gmail.com
-Telegram: <a href="https://telegram.me/Ylazakovich">Telegram</a>
+* Gmail: ylazakovich@gmail.com
+* Telegram: <a href="https://telegram.me/Ylazakovich">Telegram</a>
