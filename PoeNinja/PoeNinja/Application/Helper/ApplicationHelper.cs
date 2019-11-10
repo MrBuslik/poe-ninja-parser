@@ -236,6 +236,12 @@ namespace PoeNinja.Application.Helper
             foreach (var item in smallDict)
             {
                 key = item.Key;
+
+                if (!smallDict.ContainsKey(key) || !bigDict.ContainsKey(key))
+                {
+                    continue;
+                }
+
                 price = bigDict[key] - smallDict[key];
 
                 if (price > 7)
