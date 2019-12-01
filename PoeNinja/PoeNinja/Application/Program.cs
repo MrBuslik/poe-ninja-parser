@@ -5,6 +5,7 @@
 namespace PoeNinja.Application
 {
     using System;
+    using System.Collections.Generic;
     using Helper;
     using RestSharp;
     using Utils;
@@ -14,15 +15,9 @@ namespace PoeNinja.Application
     /// </summary>
     public class Program : ApplicationHelper
     {
-        public static void Main()
+        public static void FullTest()
         {
-            RestClient client;
-
-            client = new RestClient
-            {
-                BaseHost = "poe.ninja",
-                BaseUrl = new Uri(Constants.Url)
-            };
+            RestClient client = InitRestClient();
 
             Vault vault = Vault.GetVaultInstance();
             vault.SetSkillVault(client);
@@ -30,6 +25,55 @@ namespace PoeNinja.Application
             vault.SetWeaponVault(client);
 
             GetProfitFromVault(vault);
+        }
+
+        public static IDictionary<string, double> GetSkills()
+        {
+            RestClient client = InitRestClient();
+
+            Vault vault = Vault.GetVaultInstance();
+            vault.SetSkillVault(client);
+
+            return GetDictionarySkills(vault);
+        }
+
+        public static IDictionary<string, double> GetRecipeGolemJewel()
+        {
+            RestClient client = InitRestClient();
+
+            Vault vault = Vault.GetVaultInstance();
+            vault.SetJewelVault(client);
+
+            return GetDictionaryRecipeJewel(vault);
+        }
+
+        public static IDictionary<string, double> GetRecipeBow()
+        {
+            RestClient client = InitRestClient();
+
+            Vault vault = Vault.GetVaultInstance();
+            vault.SetWeaponVault(client);
+
+            return GetDictionaryRecipeBow(vault);
+        }
+
+        public static IDictionary<string, double> GetRecipeAxe()
+        {
+            RestClient client = InitRestClient();
+
+            Vault vault = Vault.GetVaultInstance();
+            vault.SetWeaponVault(client);
+
+            return GetDictionaryRecipeAxe(vault);
+        }
+
+        private static RestClient InitRestClient()
+        {
+            return new RestClient
+            {
+                BaseHost = "poe.ninja",
+                BaseUrl = new Uri(Constants.Url)
+            };
         }
     }
 }

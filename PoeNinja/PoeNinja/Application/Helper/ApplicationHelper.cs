@@ -252,5 +252,153 @@ namespace PoeNinja.Application.Helper
 
             return final.OrderByDescending(x => x.Value).ToDictionary(y => y.Key, z => z.Value);
         }
+
+        /// <summary>
+        /// Returns dictionary SkillGems.
+        /// </summary>
+        /// <param name="vault">vault with object dates.</param>
+        /// <returns>Dictionary SkillGems.</returns>
+        protected static IDictionary<string, double> GetDictionarySkills(Vault vault)
+        {
+            Dictionary<string, double> storageQualitySkills = new Dictionary<string, double>();
+            Dictionary<string, double> storageLvlSkills = new Dictionary<string, double>();
+
+            List<Gem> skills = vault.Storage[Constants.Gem];
+
+            foreach (var skill in skills)
+            {
+                if (!skill.Corrupted && skill.GemLevel == 20 && skill.Variant.Equals("20"))
+                {
+                    storageLvlSkills[skill.Name] = skill.ChaosValue;
+                }
+                else if (!skill.Corrupted && skill.GemLevel == 1 && skill.GemQuality == 20)
+                {
+                    storageQualitySkills[skill.Name] = skill.ChaosValue;
+                }
+            }
+
+            return ReceiveMargin(storageLvlSkills, storageQualitySkills);
+        }
+
+        /// <summary>
+        /// Returns expected profit from The Anima Jewel.
+        /// Profit gets from craft and sale on market.
+        /// </summary>
+        /// <param name="vault">vault with object dates.</param>
+        /// <returns>Dictionary recipe of Golem Jewel.</returns>
+        protected static IDictionary<string, double> GetDictionaryRecipeJewel(Vault vault)
+        {
+            List<Jewel> jewels = vault.Storage[Constants.Jewel];
+            IDictionary<string, double> jewelRecipe = new Dictionary<string, double>();
+
+            foreach (var jewel in jewels)
+            {
+                if (jewel.Name == "The Anima Stone")
+                {
+                    jewelRecipe[jewel.Name] = jewel.ChaosValue;
+                }
+
+                if (jewel.Name == "Primordial Might")
+                {
+                    jewelRecipe[jewel.Name] = jewel.ChaosValue;
+                }
+
+                if (jewel.Name == "Primordial Harmony")
+                {
+                    jewelRecipe[jewel.Name] = jewel.ChaosValue;
+                }
+
+                if (jewel.Name == "Primordial Eminence")
+                {
+                    jewelRecipe[jewel.Name] = jewel.ChaosValue;
+                }
+            }
+
+            return jewelRecipe;
+        }
+
+        /// <summary>
+        /// Returns expected profit from Bow.
+        /// Profit gets from craft and sale on market.
+        /// </summary>
+        /// <param name="vault">vault with object dates.</param>
+        /// <returns>Dictionary recipe of Bow.</returns>
+        protected static IDictionary<string, double> GetDictionaryRecipeBow(Vault vault)
+        {
+            List<Weapon> weapons = vault.Storage[Constants.Weapon];
+            Dictionary<string, double> recipe = new Dictionary<string, double>();
+
+            foreach (var weapon in weapons)
+            {
+                if (weapon.Name == "Grelwood Shank")
+                {
+                    recipe[weapon.Name] = weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Beltimber Blade")
+                {
+                    recipe[weapon.Name] = weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Arborix" && weapon.Links == 6)
+                {
+                    recipe[$"{weapon.Name} [6 link]"] = weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Arborix" && weapon.Links == 5)
+                {
+                    recipe[$"{weapon.Name} [5 link]"] = weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Arborix" && weapon.Links == 0)
+                {
+                    recipe[$"{weapon.Name} [0-4 link]"] = weapon.ChaosValue;
+                }
+            }
+
+            return recipe;
+        }
+
+        /// <summary>
+        /// Returns expected profit from Axe.
+        /// Profit gets from craft and sale on market.
+        /// </summary>
+        /// <param name="vault">vault with object dates.</param>
+        /// <returns>Dictionary recipe of Axe.</returns>
+        protected static IDictionary<string, double> GetDictionaryRecipeAxe(Vault vault)
+        {
+            List<Weapon> weapons = vault.Storage[Constants.Weapon];
+            Dictionary<string, double> recipe = new Dictionary<string, double>();
+
+            foreach (var weapon in weapons)
+            {
+                if (weapon.Name == "Soul Taker")
+                {
+                    recipe[weapon.Name] = weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Heartbreaker")
+                {
+                    recipe[weapon.Name] = weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Kingmaker" && weapon.Links == 6)
+                {
+                    recipe[$"{weapon.Name} [6 link]"] = weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Kingmaker" && weapon.Links == 5)
+                {
+                    recipe[$"{weapon.Name} [5 link]"] = weapon.ChaosValue;
+                }
+
+                if (weapon.Name == "Kingmaker" && weapon.Links == 0)
+                {
+                    recipe[$"{weapon.Name} [0-4 link]"] = weapon.ChaosValue;
+                }
+            }
+
+            return recipe;
+        }
     }
 }
